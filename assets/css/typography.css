@@ -1,0 +1,476 @@
+/* Typography styles - fonts imported in base.css */
+
+@media screen {
+
+/*****************************************************
+TYPOGRAPHY
+*****************************************************/
+
+html, body {
+  /* Typography */
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+h1, h2, h3, h4, h5 {
+  /* Typography */
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-align: left;
+  letter-spacing: -0.02em;
+}
+
+/* Heading color hierarchy - variety with restraint */
+h1 {
+  color: var(--text-h1);
+  font-weight: 700;                /* Bolder for more presence */
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-xs);
+  font-size: clamp(1.9rem, 4vw, 2.25rem);
+}
+
+h2 {
+  color: var(--text-h2);
+  font-weight: 600;
+  margin-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+  font-size: clamp(1.5rem, 3vw, 1.75rem);
+}
+
+h3 {
+  color: var(--text-h3);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-xs);
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+}
+
+h4 {
+  color: var(--text-h4);
+  margin-top: var(--spacing-md);
+  margin-bottom: 0.8rem;
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+}
+
+h5 {
+  color: var(--text-h5);
+  margin-top: var(--spacing-xs);
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+h6 {
+  color: var(--text-body);
+}
+
+hr {
+  /* Display */
+  display: block;
+
+  /* Box Model */
+  height: 0;
+  margin: 0.4rem 0;
+  clear: both;
+
+  /* Visual */
+  border: 0;
+  border-top: 2px solid var(--accent-border);
+}
+
+p {
+  /* Box Model */
+  margin-bottom: var(--spacing-md);
+
+  /* Typography */
+  line-height: 1.6em;
+  text-align: justify; /* intentional — matches academic/print conventions; override in themes if unwanted */
+}
+
+/* Reduce spacing between paragraphs and lists */
+p:has(+ ul),
+p:has(+ ol) {
+  margin-bottom: var(--spacing-xs);
+}
+
+ul, ol {
+  /* Box Model */
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  padding-left: 2rem;
+
+  /* Typography */
+  font-size: 0.95rem;
+}
+
+a {
+  /* Typography */
+  text-decoration: none;
+  color: var(--accent-primary);
+
+  /* Visual */
+  border-bottom: 1px dotted var(--accent-primary);
+}
+
+a:visited {
+  /* Typography */
+  color: var(--accent-primary);
+
+  /* Visual */
+  border-bottom: 1px dotted var(--accent-primary);
+}
+
+a:hover {
+  /* Typography */
+  color: var(--interactive-hover);
+  text-decoration: none;
+}
+
+.container li {
+  /* Box Model */
+  margin: 0 0 var(--spacing-xs) 0;
+  padding: 0;
+  
+  /* Typography */
+  line-height: 1.7rem;
+}
+
+/*****************************************************
+TABLES
+*****************************************************/
+
+table {
+  /* Box Model */
+  width: 100%;
+  margin-bottom: var(--spacing-lg);
+
+  /* Visual */
+  border-collapse: collapse;
+}
+
+th,
+td {
+  /* Box Model */
+  padding: 0.6rem 1rem;
+
+  /* Typography */
+  text-align: left;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+th {
+  /* Typography */
+  font-weight: 600;
+  color: var(--text-h3);
+
+  /* Visual */
+  border-bottom: 2px solid color-mix(in srgb, var(--accent-primary) 25%, var(--bg-page));
+}
+
+td {
+  /* Visual */
+  border-bottom: 1px solid var(--bg-card);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+
+/*****************************************************
+CODE BLOCKS
+*****************************************************/
+
+/* Inline code (in paragraphs, lists, tables, headings) */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-weight: 400;
+  color: var(--text-body);
+  background-color: color-mix(in srgb, var(--bg-code) 34%, var(--bg-page));
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 20%, transparent);
+  border-radius: var(--radius-sm);
+  padding: 0.06em 0.3em;
+}
+
+/* Keep fenced/indented code blocks clean and unchanged */
+pre code,
+.highlight pre code {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.highlight {
+  /* Display */
+  overflow-x: auto;
+
+  /* Box Model */
+  margin: var(--spacing-sm) 0;
+  padding: var(--spacing-xs);
+
+  /* Visual */
+  background: var(--bg-code);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.highlight pre {
+  /* Box Model */
+  margin: 0;
+  padding: 0;
+
+  /* Typography */
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-body);
+}
+
+
+/*****************************************************
+FOOTNOTE STYLING
+*****************************************************/
+
+/* Footnote reference buttons (superscript numbers) */
+.littlefoot__button {
+  /* Display & Positioning */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: -0.15em;
+
+  /* Box Model */
+  width: 1.2rem;
+  height: 1.2rem;
+  padding: 0;
+  margin: 0 0.15em;
+
+  /* Typography */
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  color: white;
+
+  /* Visual */
+  background: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  opacity: 0.6;
+
+  /* Interactivity */
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.littlefoot__button:hover,
+.littlefoot__button:focus {
+  /* Typography */
+  color: white;
+
+  /* Visual */
+  background: var(--interactive-hover);
+  border-color: var(--interactive-hover);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  outline: none;
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Footnote popup styling */
+.littlefoot__popover {
+  /* Box Model */
+  max-width: 28rem;
+  padding: 0;
+  margin: 0.5rem 0;
+
+  /* Visual */
+  background: var(--bg-card);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.littlefoot__content {
+  /* Box Model */
+  padding: 1rem;
+
+  /* Typography */
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.littlefoot__content p {
+  /* Box Model */
+  margin: 0 0 0.5rem 0;
+}
+
+.littlefoot__content p:last-child {
+  margin-bottom: 0;
+}
+
+
+
+/*****************************************************
+BLOCKQUOTE
+*****************************************************/
+/* Native <blockquote> element — used via Markdown > syntax */
+blockquote {
+  /* Box Model */
+  max-width: 80%;
+  margin: var(--spacing-sm) auto;
+  padding: var(--spacing-xs);
+
+  /* Typography */
+  font-size: 120%;
+  font-style: italic;
+  quotes: """ """ "'" "'";
+
+  /* Visual */
+  border-left: 4px solid var(--text-muted);
+}
+
+
+
+/*****************************************************
+PULLQUOTES
+*****************************************************/
+/* 👉 To change pullquote style, edit this block */
+.pullquote {
+  /* Box Model */
+  position: relative;
+  width: 70%;
+  margin: var(--spacing-lg) auto var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-xs);
+  justify-self: center;
+
+  /* Typography */
+  color: var(--text-body);
+}
+
+.pullquote::before {
+  content: '\201C'; /* left double quotation mark */
+  position: absolute;
+  top: -0.05em;
+  left: -0.05em;
+  z-index: 0;
+
+  /* Typography */
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 14rem;
+  line-height: 0.8;
+  color: var(--accent-primary);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.pullquote p {
+  /* Display */
+  position: relative;
+  z-index: 1;
+
+  /* Typography */
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  line-height: 1.6;
+  font-style: italic;
+  text-align: center;
+}
+
+
+/*****************************************************
+ALERTS
+*****************************************************/
+
+.alert {
+  /* Box Model */
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  border-radius: var(--radius-md);
+  border-left: 4px solid transparent;
+
+  /* Typography */
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.alert-heading {
+  /* Box Model */
+  margin-top: 0;
+  margin-bottom: var(--spacing-xs);
+
+  /* Typography */
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.alert-info {
+  background: color-mix(in srgb, var(--info) 12%, var(--bg-page));
+  border-left-color: var(--info);
+  color: var(--text-body);
+}
+
+.alert-warning {
+  background: color-mix(in srgb, var(--warning) 12%, var(--bg-page));
+  border-left-color: var(--warning);
+  color: var(--text-body);
+}
+
+.alert-danger {
+  background: color-mix(in srgb, var(--error) 12%, var(--bg-page));
+  border-left-color: var(--error);
+  color: var(--text-body);
+}
+
+.alert-success {
+  background: color-mix(in srgb, var(--success) 12%, var(--bg-page));
+  border-left-color: var(--success);
+  color: var(--text-body);
+}
+
+} /* end regular styles */
+
+
+
+
+
+/*****************************************************************************/
+/*
+/* SMALL SCREEN
+/*
+/*****************************************************************************/
+
+@media (max-width: 768px) {
+
+  /* Reduce base font size for mobile */
+  html, body {
+    font-size: 1rem;
+  }
+
+  /* Pullquotes fill full width on mobile */
+  .pullquote {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .pullquote p {
+    font-size: 1.2rem;
+  }
+
+  blockquote {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+}

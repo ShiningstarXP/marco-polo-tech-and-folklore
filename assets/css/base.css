@@ -1,0 +1,735 @@
+/* Font imports - all fonts used throughout the site */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&display=swap');
+
+@media screen {
+/*****************************************************
+PAGE SETUP & CUSTOMIZATION
+
+👉 Want to customize your site's colors?
+   See guides/customizing-colors.md for quick changes
+   See guides/using-themes.md to create a complete theme
+*****************************************************/
+
+/* --- Reset & Base --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+  :root {
+  /* ===== NAMED COLORS - Friendly Modern Palette ===== */
+  /* Sage/green family (lightest to darkest) */
+  --sage-pale: #b2cdbc;    /* Lightest sage tint */
+  --sage: #6b8e7f;         /* Primary sage green */
+  --sage-deep: #3d4e42;    /* Deep sage */
+  --sage-dark: #2d3e35;    /* Darkest sage, almost black */
+
+  /* Warm neutrals */
+  --warm-white: #f5f3f0;   /* Warm off-white */
+  --warm-light: #e8e4df;   /* Light warm tone for cards */
+  --golden-wash: #f5ece0;  /* Very light golden tint for special sections */
+
+  /* Accent colors */
+  --golden-clay: #b8956a;  /* Warm clay */
+  --golden-clay-dark: #8b6f47;  /* Darker warm clay for headings */
+  --amber: #f59e0b;        /* Bright amber */
+
+  /* ===== SEMANTIC COLOR SYSTEM ===== */
+  /* Backgrounds */
+  --bg-page: var(--warm-white);
+  --bg-card: var(--warm-light);
+  --bg-accent: var(--golden-wash);
+  --bg-code: var(--sage-pale);
+  --bg-nav: var(--sage);
+
+  /* Text */
+  --text-body: var(--sage-dark);
+  --text-on-dark: var(--warm-white);
+  --text-muted: #666;
+
+  /* Accents & Interactive */
+  --accent-primary: var(--sage);
+  --accent-border: var(--golden-clay);
+  --interactive-hover: var(--amber);
+
+  /* Status colors */
+  --success: #28a745;
+  --warning: #ffc107;
+  --warning-bg: #fff3cd;
+  --error: #dc3545;
+  --info: #5b9aa0;
+
+  /* Heading colors — override these in themes to change heading hierarchy */
+  --text-h1: var(--golden-clay);
+  --text-h2: var(--sage);
+  --text-h3: var(--sage-deep);
+  --text-h4: var(--sage-dark);
+  --text-h5: var(--golden-clay-dark);
+
+  /* Utility */
+  --overlay-dark: rgba(0, 0, 0, 0.8);
+  --white: #ffffff;
+  --border-light: rgba(0, 0, 0, 0.1);
+  --border-on-dark: rgba(255, 255, 255, 0.2); /* Borders/dividers on dark backgrounds */
+  --accent-primary-dark: var(--sage-deep);     /* Darker accent for active/selected states */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 12px color-mix(in srgb, var(--interactive-hover) 40%, transparent);
+
+  /* Fonts */
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-serif: 'Lora', serif;
+  --font-mono: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 1s ease-in-out;
+
+  /* Footer */
+  --bg-footer: var(--sage);
+  --bg-footer-bottom: var(--sage-deep);
+  --text-footer-link: var(--warm-white);
+  --text-footer-bottom: var(--sage-pale);
+}
+
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-page);
+}
+
+.page-wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/*
+  CSS Grid full-bleed layout.
+  Named lines create two zones:
+    full:    spans the full container width (for jumbotrons, section backgrounds)
+    content: centered content column, max 48rem wide
+
+  All direct children default to the content column.
+  Full-bleed elements use: grid-column: full;
+*/
+.container {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--spacing-sm), 1fr)
+    [content-start] min(48rem, 100% - 2 * var(--spacing-sm))
+    [content-end] minmax(var(--spacing-sm), 1fr)
+    [full-end];
+}
+
+.container > * {
+  grid-column: content;
+}
+
+
+/*****************************************************
+SECTION BACKGROUNDS - Subtle visual rhythm
+*****************************************************/
+
+/* Alternating section backgrounds for visual hierarchy - full width */
+.section-alt {
+  grid-column: full;
+  background-color: var(--bg-card);
+  padding: var(--spacing-lg) max(var(--spacing-sm), calc(50% - 24rem));
+}
+
+.section-alt h2:first-child {
+  margin-top: 0;
+}
+
+/* Warm golden section background - for special/whimsical moments */
+.section-warm {
+  grid-column: full;
+  background-color: var(--bg-accent);
+  padding: var(--spacing-lg) max(var(--spacing-sm), calc(50% - 24rem));
+}
+
+.section-warm h2:first-child {
+  margin-top: 0;
+}
+
+/* Accent border on left side - modern touch */
+.section-accent {
+  border-left: 4px solid var(--accent-primary);
+  padding-left: var(--spacing-lg);
+  margin-left: var(--spacing-md);
+}
+
+/* Two-column layout utility */
+.two-columns {
+  column-count: 2;
+  column-gap: var(--spacing-lg);
+  list-style: none;
+  padding-left: 0;
+  margin-top: var(--spacing-lg);
+}
+
+.two-columns li {
+  break-inside: avoid;
+  margin-bottom: var(--spacing-sm);
+}
+
+@media (max-width: 768px) {
+  .two-columns {
+    column-count: 1;
+  }
+}
+
+/* Right-aligned call-out link - learn more style links */
+.link-callout {
+  text-align: right;
+  margin-top: var(--spacing-md);
+}
+
+.link-callout a {
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.link-callout a:hover {
+  color: var(--interactive-hover);
+  text-decoration: underline;
+}
+
+
+/*****************************************************
+JUMBOTRON
+*****************************************************/
+/* 👉 To change text width or font, edit .jumbotron-content.
+      Use box-align: left | right | center in the include to position text
+      and control gradient direction. */
+.jumbotron {
+  /* Display */
+  display: flex;
+  align-items: center;
+
+  /* Grid breakout — full viewport width */
+  grid-column: full;
+  overflow: hidden;
+
+  /* Visual */
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Text position + gradient direction — set via box-align parameter */
+.jumbotron--left  { justify-content: flex-start; }
+.jumbotron--right { justify-content: flex-end; }
+.jumbotron--center { justify-content: center; }
+
+/* 👉 To change text width, padding, or font for all jumbotrons, edit here. */
+.jumbotron-content {
+  /* Box Model */
+  max-width: 45rem;
+  padding: var(--spacing-lg);
+
+  /* Typography */
+  font-family: var(--font-body);
+  color: var(--text-body);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Center mode: text overlays the image directly — use shadow for legibility */
+.jumbotron--center .jumbotron-content {
+  text-align: center;
+  color: white;
+  text-shadow:
+    0 0 20px rgba(0, 0, 0, 0.7),
+    0 0 50px rgba(0, 0, 0, 0.4);
+}
+
+.jumbotron-content h2 {
+  /* Box Model */
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+
+  /* Typography */
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  color: var(--accent-primary);
+}
+
+.jumbotron--center .jumbotron-content h2 {
+  color: white;
+}
+
+.jumbotron-text {
+  /* Typography */
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.jumbotron-text p {
+  margin-bottom: var(--spacing-md);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .jumbotron {
+    min-height: 50vh;
+  }
+
+  .jumbotron-content {
+    max-width: 100%;
+    padding: var(--spacing-md);
+  }
+
+  .jumbotron-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .jumbotron-text {
+    font-size: 1rem;
+  }
+}
+
+
+/*****************************************************
+IMAGES
+*****************************************************/
+
+figure {
+  /* Box Model */
+  margin: 0;
+  margin-bottom: var(--spacing-md);
+  
+  /* Positioning */
+  clear: none;
+}
+
+.right {
+  /* Grid alignment within content column */
+  justify-self: end;
+  margin-bottom: var(--spacing-md);
+  text-align: left;
+}
+
+.left {
+  /* Grid alignment within content column */
+  justify-self: start;
+  margin-bottom: var(--spacing-md);
+}
+
+.center {
+  /* Grid alignment within content column */
+  justify-self: center;
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+figcaption {
+  /* Display */
+  display: block;
+  
+  /* Box Model */
+  margin: 0.4rem 0 1rem 0;
+  padding: 0;
+  clear: both;
+  
+  /* Typography */
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  line-height: 1.1rem;
+  text-align: justify;
+  color: var(--text-body);
+}
+
+figcaption a {
+  /* Typography */
+  font-weight: normal;
+
+  /* Visual */
+  opacity: 0.5;
+}
+
+/*****************************************************
+FIGURE WRAP — two-column image + text layout
+*****************************************************/
+
+.figure-wrap {
+  /* Display */
+  display: grid;
+  grid-template-columns: var(--figure-wrap-image-width, 40%) 1fr;
+  gap: var(--spacing-lg);
+  align-items: start;
+
+  /* Box Model */
+  margin-bottom: var(--spacing-lg);
+}
+
+.figure-wrap--right {
+  grid-template-columns: 1fr var(--figure-wrap-image-width, 40%);
+}
+
+.figure-wrap--right .figure-wrap__image {
+  order: 2;
+}
+
+.figure-wrap--right .figure-wrap__text {
+  order: 1;
+}
+
+.figure-wrap__image {
+  margin: 0;
+}
+
+.figure-wrap__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  .figure-wrap,
+  .figure-wrap--right {
+    grid-template-columns: 1fr;
+  }
+
+  .figure-wrap--right .figure-wrap__image,
+  .figure-wrap--right .figure-wrap__text {
+    order: unset;
+  }
+}
+
+/*****************************************************
+IMAGE CAROUSEL
+Uses Splide.js — see _includes/images/carousel.html
+*****************************************************/
+
+/* Carousel wrapper — height is set via fixedHeight in Splide options */
+.xanthan-carousel {
+  /* Visual */
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+/* Figure fills the full slide height */
+.xanthan-carousel__slide {
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  /* Box Model */
+  margin: 0;
+}
+
+/* Image fills the slide, cropping as needed */
+.xanthan-carousel__slide img {
+  /* Display */
+  display: block;
+  flex: 1;
+
+  /* Box Model */
+  width: 100%;
+  min-height: 0;
+
+  /* Visual */
+  object-fit: cover;
+}
+
+/* Figcaption — appears below the image */
+.xanthan-carousel__slide figcaption {
+  /* Box Model */
+  padding: var(--spacing-sm) var(--spacing-md);
+  flex-shrink: 0;
+
+  /* Visual */
+  background: var(--bg-card);
+
+  /* Typography */
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+
+/*****************************************************
+FOOTER
+*****************************************************/
+
+footer {
+  /* Display & Positioning */
+  margin-top: auto;
+
+  /* Typography */
+  color: var(--text-on-dark);
+
+  /* Visual */
+  background-color: var(--bg-footer);
+  border-top: 2px solid var(--accent-border);
+  padding: 0;
+}
+
+.footer-columns {
+  /* Layout */
+  max-width: 55rem;
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-md);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-md);
+  justify-items: center;
+}
+
+/* Hide footer navigation columns on small screens */
+@media (max-width: 768px) {
+  .footer-columns {
+    display: none;
+  }
+}
+
+.footer-column h3 {
+  margin: 0 0 0.35rem 0;
+  padding: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--interactive-hover);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin: 0;
+  padding: 0;
+}
+
+.footer-column ul li a {
+  color: var(--text-footer-link);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color var(--transition-fast);
+}
+
+.footer-column ul li a:hover {
+  color: var(--interactive-hover);
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-on-dark);
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: center;
+  background-color: var(--bg-footer-bottom);
+}
+
+.footer-bottom .container {
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 0.8rem;
+  color: var(--text-footer-bottom);
+  margin: 0.25rem 0;
+  text-align: center;
+}
+
+.footer-bottom a {
+  color: var(--text-footer-link);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.footer-bottom a:hover {
+  color: var(--interactive-hover);
+  text-decoration: underline;
+}
+
+.footer-tagline {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6); /* subdued — intentionally lighter than --text-footer-bottom */
+}
+
+/* Responsive footer */
+@media (max-width: 768px) {
+  footer {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+}
+
+
+
+/*****************************************************
+BUTTONS
+*****************************************************/
+
+/* Shared styles — applied to both primary and secondary variants */
+.btn-primary,
+.btn-secondary {
+  /* Display */
+  display: inline-block;
+
+  /* Typography */
+  font-family: var(--font-body);
+  color: var(--white);
+  text-decoration: none;
+
+  /* Visual */
+  background: var(--accent-primary);
+  border: none;
+  border-radius: var(--radius-md);
+
+  /* Interactivity */
+  transition: background-color var(--transition-normal), transform var(--transition-fast), box-shadow var(--transition-normal);
+}
+
+/*
+  Override a:visited from typography.css.
+  :visited raises specificity enough to beat a:visited.
+*/
+.btn-primary:visited,
+.btn-secondary:visited {
+  color: var(--white);
+  text-decoration: none;
+  border: none;
+}
+
+.btn-primary:hover,
+.btn-primary:visited:hover,
+.btn-secondary:hover,
+.btn-secondary:visited:hover {
+  color: var(--white);
+  background: var(--interactive-hover);
+}
+
+/* Primary — larger, full emphasis */
+.btn-primary {
+  padding: 1em 2em;
+  font-size: 1.2em;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover,
+.btn-primary:visited:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* Secondary — smaller, lower emphasis */
+.btn-secondary {
+  padding: 0.6em 1.2em;
+  font-size: 0.95em;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover,
+.btn-secondary:visited:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+/* Size modifiers — stack with any button variant */
+.btn-lg {
+  font-size: 1.75rem;
+  padding: 1rem 3rem;
+}
+
+.btn-sm {
+  font-size: 0.85rem;
+  padding: 0.4em 1em;
+}
+
+
+/*****************************************************
+HERO SECTION (Homepage)
+*****************************************************/
+
+.hero-section {
+  text-align: center;
+  max-width: 800px;
+  margin: 3rem auto 0;
+}
+
+.hero-tagline {
+  text-align: center;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 1rem auto 1.5rem;
+  max-width: 700px;
+}
+
+.hero-cta {
+  text-align: center;
+  margin: 0 0 2.5rem;
+}
+
+
+} /* end media screen */
+
+
+
+/*****************************************************************************/
+/*
+/* SMALL SCREEN
+/*
+/*****************************************************************************/
+
+@media (max-width: 768px) {
+
+  /* Remove container padding on mobile so images can be full width */
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Add padding back to text elements */
+  .container p,
+  .container h1,
+  .container h2,
+  .container h3,
+  .container h4,
+  .container h5,
+  .container h6,
+  .container ul,
+  .container ol,
+  .container blockquote,
+  .container .pullquote,
+  .container .alert {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+
+  /* On small screens, figures fill the full content column width */
+  figure {
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-self: stretch !important;
+    margin-bottom: var(--spacing-md);
+  }
+
+}

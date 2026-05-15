@@ -1,0 +1,100 @@
+/* === Simple Theme Example === */
+/*
+  LEARNING GUIDE: Creating Your First Theme
+
+  This file shows you how to create a basic theme that changes colors and fonts
+  without modifying any CSS files. It's perfect for beginners who want to
+  customize their site's appearance while keeping the default layout and styling.
+
+  HOW TO USE THIS FILE:
+  1. Copy this file and rename it (e.g., my-theme.css)
+  2. Change the colors below to your preferences
+  3. Optionally change the fonts
+  4. In _includes/page-header.html, uncomment the link to your theme file
+  5. Save and refresh
+
+  WHAT THIS DOES:
+  - Changes site colors (backgrounds, text, accents)
+  - Optionally changes fonts
+  - Keeps all layouts, spacing, and component styles from base.css
+
+  WHAT THIS DOESN'T DO:
+  - Doesn't change element styles (heading sizes, borders, etc.)
+  - For advanced styling, see dark-energy.css
+*/
+
+/*****************************************************
+STEP 1: DEFINE YOUR COLOR PALETTE
+*****************************************************/
+/*
+  First, pick your colors and give them descriptive names.
+  Use a color picker tool to get hex codes: https://coolors.co/
+*/
+
+:root {
+  /* ===== Your Color Palette ===== */
+  /* Replace these colors with your own preferences */
+
+  --ocean-blue: #2c5f7c;      /* Deep blue for accents */
+  --sky-blue: #4a9bbe;        /* Lighter blue for interactions */
+  --cloud-white: #f7f9fb;     /* Very light blue-tinted white */
+  --pearl: #e8eef2;           /* Light background */
+  --charcoal: #2d3748;        /* Dark text */
+  --slate: #718096;           /* Muted text */
+
+
+  /* ===== Map Your Colors to Site Elements ===== */
+  /*
+    These variable names MUST match base.css exactly.
+    Just change what color they point to.
+  */
+
+  /* --- Backgrounds --- */
+  --bg-page: var(--cloud-white);     /* Main page background */
+  --bg-card: var(--pearl);           /* Card and panel backgrounds */
+  --bg-code: var(--pearl);           /* Code block backgrounds */
+  --bg-nav: var(--ocean-blue);       /* Navigation bar background */
+
+  /* --- Text Colors --- */
+  --text-body: var(--charcoal);      /* Main text color */
+  --text-on-dark: var(--cloud-white);/* Text on dark backgrounds (like nav) */
+  --text-muted: var(--slate);        /* Less important text */
+
+  /* --- Accent Colors --- */
+  --accent-primary: var(--ocean-blue);     /* Links, buttons, headings */
+  --accent-border: var(--sky-blue);        /* Borders, underlines */
+  --interactive-hover: var(--sky-blue);    /* Hover states */
+
+
+  /* ===== Optional: Change Fonts ===== */
+  /*
+    Uncomment these lines to change fonts.
+    Remember to add the font import at the top of this file!
+
+    Example font import (add at top of file):
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  */
+
+  /* --font-heading: 'Roboto', sans-serif; */
+  /* --font-body: 'Open Sans', sans-serif; */
+  /* --font-mono: 'Courier New', monospace; */
+}
+
+
+/*****************************************************
+THAT'S IT!
+*****************************************************/
+/*
+  You're done! This simple theme only changes variables.
+  Everything else (layouts, spacing, component styles) is inherited
+  from the base CSS files.
+
+  NEXT STEPS:
+  - Test your colors for good contrast: https://webaim.org/resources/contrastchecker/
+  - Make sure dark text is readable on light backgrounds (and vice versa)
+  - View your site on different page types to see how colors work everywhere
+
+  WANT MORE CONTROL?
+  - See dark-energy.css for examples of custom element styling
+  - See the Customizing guide for more advanced techniques
+*/

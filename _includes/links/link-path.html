@@ -1,0 +1,11 @@
+{% assign raw_link = include.link | strip %}
+{% if raw_link != '' %}
+  {% assign first_char = raw_link | slice: 0, 1 %}
+  {% if raw_link contains '://' or raw_link contains 'mailto:' or raw_link contains 'tel:' or first_char == '#' %}
+    {{ raw_link }}
+  {% elsif first_char == '/' %}
+    {{ site.baseurl }}{{ raw_link }}
+  {% else %}
+    {{ site.baseurl }}/{{ raw_link }}
+  {% endif %}
+{% endif %}

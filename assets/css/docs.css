@@ -1,0 +1,28 @@
+/*****************************************************
+DOCS - Styles for /docs/ reference and guide pages
+
+Loaded only on pages whose URL contains /docs/
+(see _includes/html/html-head.html)
+*****************************************************/
+
+/*
+  Reference table layout: pins column widths for the
+  standard three-column pattern (Field | Example | What it does).
+  Assumes most docs tables follow this pattern.
+  If a table on a docs page has a different structure,
+  add class="auto-table" and override table-layout: auto on it.
+*/
+.container table {
+  table-layout: fixed;
+}
+
+.container table th:first-child,
+.container table td:first-child {
+  width: 18%;
+  white-space: nowrap;
+}
+
+.container table th:nth-child(2),
+.container table td:nth-child(2) {
+  width: 36%;
+}

@@ -1,0 +1,21 @@
+{% capture img_url %}
+{% include images/image-path.html image-path=include.image-path %}
+{% endcapture %}
+
+{% assign img_url = img_url | strip %}
+
+{% unless img_url %}
+  <div class="figure-placeholder" style="border: 2px dashed var(--accent-border); padding: var(--spacing-md); color: var(--text-muted); font-family: var(--font-mono); font-size: 0.85rem; text-align: center; margin-bottom: var(--spacing-md);">
+    image-path missing &mdash; check the image-path parameter in this figure include
+  </div>
+{% endunless %}
+
+<figure class="{{ include.class }}" style="width: {{ include.width | default: '40%' }}">
+
+  <a class="image" href="{{ img_url }}"><img src="{{ img_url }}" alt="{{ include.alt-text | default: include.caption }}" width="100%"></a>
+
+  <figcaption>
+    {{ include.caption | markdownify }}
+  </figcaption>
+
+</figure>

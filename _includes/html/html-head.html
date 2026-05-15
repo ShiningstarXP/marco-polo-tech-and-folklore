@@ -1,0 +1,82 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <title>{% if page.title %}{{ page.title | escape }} // {{ site.title | escape }}{% else %}{{ site.title | escape }} // {{ site.tagline | escape }}{% endif %}</title>
+
+  <meta name="description" content="{{ page.summary | default: 'Xanthan is a free, open-source website template for digital scholarship, portfolios, and scrollytelling narratives.' | escape }}">
+  <meta name="author" content="">
+  <link rel="icon" href="{{site.baseurl}}/favicon.ico">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="{{ page.title | default: site.title | escape }}">
+  <meta property="og:description" content="{{ page.summary | default: 'Xanthan is a free, open-source website template for digital scholarship, portfolios, and scrollytelling narratives.' | escape }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  {% if page.thumbnail or page.header-image %}
+  <meta property="og:image" content="{{ site.url }}{{ page.dir }}{{ page.thumbnail | default: page.header-image }}">
+  {% endif %}
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- juxtapose.js CSS for image comparison -->
+  <link rel="stylesheet" href="https://cdn.knightlab.com/libs/juxtapose/latest/css/juxtapose.css">
+
+  <!-- littlefoot.js CSS for snappy footnotes -->
+  <link rel="stylesheet" href="https://unpkg.com/littlefoot/dist/littlefoot.css" />
+
+  <!-- Splide CSS for image carousels -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css">
+
+  <!-- Base CSS -->
+  <link href="{{site.baseurl}}/assets/css/base.css" rel="stylesheet">
+  <link href="{{site.baseurl}}/assets/css/cards.css" rel="stylesheet">
+  <link href="{{site.baseurl}}/assets/css/backgrounds.css" rel="stylesheet">
+  <link href="{{site.baseurl}}/assets/css/typography.css" rel="stylesheet">
+  <link href="{{site.baseurl}}/assets/css/nav.css" rel="stylesheet">
+  <link href="{{site.baseurl}}/assets/css/nav-left.css" rel="stylesheet">
+  <link href="{{site.baseurl}}/assets/css/nav-profile.css" rel="stylesheet">
+  <link href="{{site.baseurl}}/assets/css/workshop.css" rel="stylesheet">
+
+  <!--
+    Alternate theme CSS that overrides bases above. 
+    To use a new CSS file, remove the comment marks before and after the line below
+  -->        
+  
+  <!-- <link href="{{site.baseurl}}/assets/css/themes/dark-energy.css" rel="stylesheet"> -->
+
+  <!-- scrollstory layout CSS 
+    To differentiate scrollstory pages from regular pages, we use a special layout value in the YAML front matter
+    and load the scrollstory.css file.
+  -->
+
+  {% if page.layout == 'scrollstory' %}
+  <link href="{{site.baseurl}}/assets/css/scrollstory.css" rel="stylesheet">
+  {% endif %}
+
+  <!-- docs CSS - consistent table column widths for /docs/ pages -->
+  {% if page.url contains '/docs/' %}
+  <link href="{{site.baseurl}}/assets/css/docs.css" rel="stylesheet">
+  {% endif %}
+
+  <!-- Page header CSS: loaded when page has a header image -->
+  {% if page.header-image %}
+  <link href="{{site.baseurl}}/assets/css/page-header.css" rel="stylesheet">
+  {% endif %}
+
+  <!-- Search CSS (loaded when search is enabled in _config.yml) -->
+  {% if site.search %}
+  <link href="{{site.baseurl}}/assets/css/search.css" rel="stylesheet">
+  {% endif %}
+
+  <!-- page specific CSS -->
+  <!-- individual pages can specify a css file in the YAML header with
+    css: my_styles.css
+  -->
+  {% if page.css %}
+  <link href="{{site.baseurl}}/assets/css/{{page.css}}" rel="stylesheet">
+  {% endif %}
+  
+</head>

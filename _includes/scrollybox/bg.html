@@ -1,0 +1,38 @@
+{% capture image-path %}
+{% include images/image-path.html image-path=include.image-path %}
+{% endcapture %}
+
+{% assign image-path = image-path | strip %}
+
+
+{::nomarkdown}
+</div>
+{:/nomarkdown}
+
+<div class="bg-image" style="background-image: url('{{ image-path }}'); height: {{ include.height }}">
+  <h1 id="page-title">{{ include.title}}</h1>
+  <h2 id="page-subtitle">{{ include.text }}</h2>
+
+  {% if include.box-content %}
+
+    <div style="height: {{ include.above-box-space }}">
+      &nbsp;
+    </div>
+
+    {% assign box_align = include.box-align | default: 'center' %}
+    <div class="bg-text-box{% if box_align != 'center' %} bg-text-box--{{ box_align }}{% endif %}">
+      {{ include.box-content | strip | markdownify }}
+    </div>
+
+    <div style="height: {{ include.below-box-space }}">
+      &nbsp;
+    </div>
+
+  {% endif %}
+
+
+</div>
+
+{::nomarkdown}
+<div class="container">
+{:/nomarkdown}

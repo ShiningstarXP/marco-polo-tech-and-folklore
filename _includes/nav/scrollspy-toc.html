@@ -1,0 +1,220 @@
+<!-- Scrollspy Table of Contents -->
+<nav class="scrollspy-toc">
+  <h4>On this page</h4>
+  <ul id="toc-list">
+    <!-- Auto-populated by JavaScript -->
+  </ul>
+</nav>
+
+<style>
+/* Default: horizontal pill bar at top of content (small & medium screens) */
+.scrollspy-toc {
+  grid-column: content; /* explicit — sits in the content column */
+  margin: 0 0 var(--spacing-lg) 0;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.scrollspy-toc h4 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.scrollspy-toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.scrollspy-toc li {
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+.scrollspy-toc li::after {
+  content: " · ";
+  color: var(--text-muted);
+}
+
+.scrollspy-toc li:last-child::after {
+  content: "";
+}
+
+.scrollspy-toc a {
+  display: inline;
+  padding: 0.15rem 0;
+  color: var(--text-body);
+  text-decoration: none;
+  border-bottom: none;
+  transition: color var(--transition-fast);
+}
+
+.scrollspy-toc a:hover {
+  color: var(--accent-primary);
+}
+
+.scrollspy-toc a.active {
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+/* Large screens: TOC becomes a sticky sidebar using the grid's full zone */
+@media (min-width: 1100px) {
+  /* Extend the container grid to include a TOC sidebar column */
+  .container:has(.scrollspy-toc) {
+    grid-template-columns:
+      [full-start] minmax(var(--spacing-sm), 1fr)
+      [content-start] min(48rem, 100% - 2 * var(--spacing-sm))
+      [content-end] calc(190px + var(--spacing-xl))
+      [toc-end] minmax(var(--spacing-sm), 1fr)
+      [full-end];
+  }
+
+  .scrollspy-toc {
+    /* Place in the dedicated TOC column */
+    grid-column: content-end / toc-end;
+    grid-row: 1 / span 1000;
+
+    /* Sticky sidebar behavior */
+    position: sticky;
+    top: 5rem;
+    align-self: start;
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+
+    /* Visual */
+    margin: 0 0 0 var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: transparent;
+    border: none;
+    border-left: 2px solid var(--border-light);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .scrollspy-toc h4 {
+    margin: 0 0 var(--spacing-sm) 0;
+  }
+
+  .scrollspy-toc ul {
+    font-size: 0.8rem;
+  }
+
+  .scrollspy-toc li {
+    display: block;
+  }
+
+  .scrollspy-toc li::after {
+    content: "";
+  }
+
+  .scrollspy-toc a {
+    display: block;
+    padding: 0.3rem var(--spacing-xs);
+    border-left: 2px solid transparent;
+    margin-left: -2px;
+    line-height: 1.3;
+  }
+
+  .scrollspy-toc a:hover {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  .scrollspy-toc a.active {
+    border-left-color: var(--accent-primary);
+    background: none;
+  }
+}
+</style>
+
+<script>
+(function() {
+  // Wait for DOM to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollspy);
+  } else {
+    initScrollspy();
+  }
+
+  function initScrollspy() {
+    const tocList = document.getElementById('toc-list');
+    if (!tocList) return;
+
+    // Find all h2 headings in the main content
+    const headings = document.querySelectorAll('.container h2');
+    if (headings.length === 0) return;
+
+    // Generate TOC links
+    headings.forEach((heading, index) => {
+      // Create an ID for the heading if it doesn't have one
+      if (!heading.id) {
+        heading.id = 'section-' + index;
+      }
+
+      // Create TOC item
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = '#' + heading.id;
+      a.textContent = heading.textContent;
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Update URL without jumping
+        history.pushState(null, null, '#' + heading.id);
+      });
+
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+
+    // Scrollspy functionality
+    const links = tocList.querySelectorAll('a');
+    const headingPositions = Array.from(headings).map(h => ({
+      id: h.id,
+      top: h.offsetTop
+    }));
+
+    function updateActiveLink() {
+      const scrollPos = window.scrollY + 100; // Offset for better UX
+
+      // Find the current section
+      let currentId = headingPositions[0]?.id;
+      for (let i = headingPositions.length - 1; i >= 0; i--) {
+        if (scrollPos >= headingPositions[i].top) {
+          currentId = headingPositions[i].id;
+          break;
+        }
+      }
+
+      // Update active state
+      links.forEach(link => {
+        if (link.getAttribute('href') === '#' + currentId) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+
+    // Update on scroll (throttled)
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+      }
+      scrollTimeout = window.requestAnimationFrame(updateActiveLink);
+    });
+
+    // Initial update
+    updateActiveLink();
+  }
+})();
+</script>

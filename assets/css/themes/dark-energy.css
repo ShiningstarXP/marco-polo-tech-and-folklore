@@ -1,0 +1,472 @@
+/* === Dark Energy Theme === */
+/*
+  Load this AFTER base.css, typography.css, nav.css, and cards.css in page-header.html
+
+  This theme demonstrates how to create a dark theme by:
+  1. Overriding CSS variables from base.css with dark colors
+  2. Customizing specific elements that need visual changes beyond color swaps
+
+  LEARNING TIP: This file only includes what's different from the base theme.
+  Everything else is inherited from base.css, typography.css, nav.css, and cards.css.
+*/
+
+/* Theme-specific font */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+/*****************************************************
+CSS VARIABLE OVERRIDES
+*****************************************************/
+:root {
+  /* ===== Dark Energy Color Palette ===== */
+  --charcoal: #1C1C1C;
+  --navy: #0E1A2B;
+  --cream: #C6C4BD;
+  --silver: #BCBCBC;
+  --red: #D62828;
+  --ochre: #FCBF00;
+  --teal: #009FB7;
+  --code-bg-dark: #1f2d3d;
+  --code-text-light: #b4c2d6;
+
+  /* ===== Override Base Theme Variables ===== */
+  /* These MUST match variable names in base.css */
+
+  /* Backgrounds */
+  --bg-page: var(--navy);
+  --bg-card: var(--charcoal);
+  --bg-code: var(--code-bg-dark);
+  --bg-nav: var(--charcoal);
+
+  /* Text */
+  --text-body: var(--cream);
+  --text-on-dark: var(--cream);
+  --text-muted: var(--silver);
+
+  /* Accents & Interactive */
+  --accent-primary: var(--red);
+  --accent-border: var(--teal);
+  --interactive-hover: var(--ochre);
+
+  /* Fonts */
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Space Mono', 'Consolas', 'Menlo', monospace;
+
+  /* Override semantic heading colors */
+  --text-h1: var(--red);
+  --text-h2: var(--ochre);
+  --text-h3: var(--teal);
+
+  /* Alert text colors — lightened theme colors for legibility on dark backgrounds */
+  --alert-info-text: #9dd4de;
+  --alert-warning-text: #fdd876;
+  --alert-success-text: #7dce98;
+  --alert-danger-text: #f28a8a;
+
+  /* Minimal helper variants to keep declarations readable */
+  --code-bg-alpha: rgba(26, 35, 50, 0.5);
+  --accent-border-weak: rgba(0, 159, 183, 0.25);
+  --accent-border-strong: rgba(0, 159, 183, 0.4);
+  --silver-weak: rgba(188, 188, 188, 0.2);
+  --silver-strong: rgba(188, 188, 188, 0.35);
+  --shadow-strong: 0 2px 12px rgba(0, 0, 0, 0.35);
+  --shadow-deep: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-accent: 0 6px 16px rgba(0, 159, 183, 0.3);
+  /* Deliberately distinct gradient stops for visible contrast */
+  --body-grad-start: var(--navy);
+  --body-grad-mid: var(--charcoal);
+  --body-grad-end: #111722;
+  --card-grad-start: #223246;
+  --card-grad-end: #111722;
+}
+
+/*****************************************************
+LAYOUT & BACKDROP
+*****************************************************/
+body {
+  background: linear-gradient(160deg, var(--body-grad-start) 0%, var(--body-grad-mid) 60%, var(--body-grad-end) 100%);
+  background-size: 100% 300%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--text-body);
+}
+
+.top-nav {
+  background-color: var(--bg-nav);
+  border-bottom: 1px solid var(--accent-border-weak);
+  box-shadow: var(--shadow-strong);
+}
+
+.top-nav-dropdown {
+  background-color: var(--bg-card);
+  border: 1px solid var(--accent-border-strong);
+  box-shadow: var(--shadow-deep);
+}
+
+.top-nav-dropdown-item {
+  color: var(--text-body);
+}
+
+
+/*****************************************************
+TYPOGRAPHY - Visual changes beyond color swaps
+*****************************************************/
+
+h1,
+h2 {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+}
+
+h3,
+h4 {
+  font-weight: 700;
+}
+
+h1 { font-size: 2.4rem; }
+h2 { font-size: 1.7rem; }
+h3 { font-size: 1.3rem; }
+h4 { font-size: 1.2rem; }
+
+p {
+  font-size: 1.125rem;
+  line-height: 1.6em;
+}
+
+
+/*****************************************************
+CODE BLOCKS
+*****************************************************/
+
+.highlight {
+  color: var(--code-text-light);
+  box-shadow: inset 3px 0 0 var(--accent-border);
+}
+
+.highlight pre {
+  color: var(--code-text-light);
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+code {
+  color: var(--accent-border);
+  background: var(--code-bg-alpha);
+}
+
+.highlight code {
+  color: var(--code-text-light);
+}
+
+
+/*****************************************************
+NAVIGATION - Custom underline style
+*****************************************************/
+
+/* .top-nav .top-nav-link uses specificity 0,2,0 to override .top-nav a (0,1,1) */
+.top-nav .top-nav-link {
+  font-family: var(--font-mono);
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  transition: border-color var(--transition-fast);
+}
+
+.top-nav .top-nav-link:hover,
+.top-nav .top-nav-link:focus {
+  border-bottom-color: var(--accent-primary);
+}
+
+.top-nav-dropdown-item:hover,
+.top-nav-dropdown-item:focus {
+  background: var(--accent-border-weak);
+  border-left-color: var(--accent-border);
+}
+
+
+/*****************************************************
+CARDS - Gradient background
+*****************************************************/
+
+.card {
+  background: linear-gradient(135deg, var(--card-grad-start) 0%, var(--card-grad-end) 100%);
+  border: 1px solid var(--accent-border-strong);
+  opacity: 1;
+}
+
+.card:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-accent);
+  opacity: 1;
+}
+
+.card h3 {
+  color: var(--accent-border);
+}
+
+.card a h3 {
+  color: var(--accent-border);
+}
+
+.card-text {
+  color: var(--text-muted);
+}
+
+
+/*****************************************************
+TOC ROWS
+*****************************************************/
+
+.toc-row {
+  background: linear-gradient(135deg, var(--card-grad-start) 0%, var(--card-grad-end) 100%);
+  border: 1px solid var(--accent-border-strong);
+}
+
+.toc-row:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-accent);
+  transform: translateX(8px);
+}
+
+.toc-row h3 {
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  color: var(--text-h2);
+}
+
+
+/*****************************************************
+BUTTONS
+*****************************************************/
+
+button,
+.btn {
+  font-family: var(--font-mono);
+  color: var(--text-body);
+}
+
+.btn-primary,
+.btn-primary:visited {
+  color: var(--text-body);
+  background: var(--accent-primary);
+}
+
+.btn-primary:hover,
+.btn-primary:visited:hover {
+  color: var(--text-body);
+  background: var(--interactive-hover);
+}
+
+.btn-secondary,
+.btn-secondary:visited {
+  color: var(--text-body);
+  background: transparent;
+  border: 1px solid var(--accent-border-strong);
+}
+
+.btn-secondary:hover,
+.btn-secondary:visited:hover {
+  border-color: var(--accent-border);
+  color: var(--interactive-hover);
+}
+
+
+/*****************************************************
+FORMS
+*****************************************************/
+
+input,
+textarea,
+select {
+  background: var(--bg-card);
+  color: var(--text-body);
+  border: 1px solid var(--silver-strong);
+  box-shadow: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 3px var(--accent-border-weak);
+}
+
+
+/*****************************************************
+PULLQUOTES & ASIDES
+*****************************************************/
+
+.pullquote,
+aside {
+  color: var(--interactive-hover);
+  background: color-mix(in srgb, var(--interactive-hover) 5%, transparent);
+  border-left: 4px solid var(--interactive-hover);
+  border-top: none;
+  border-bottom: none;
+  padding: var(--spacing-sm);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  margin-left: var(--spacing-lg);
+  margin-right: var(--spacing-lg);
+}
+
+.pullquote p,
+aside p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: var(--interactive-hover);
+}
+
+@media (max-width: 991.98px) {
+  .pullquote,
+  aside {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.pullquote::before,
+aside::before {
+  color: var(--interactive-hover);
+}
+
+
+/*****************************************************
+BLOCKQUOTE
+*****************************************************/
+
+blockquote {
+  color: var(--text-muted);
+  border-left: 4px solid var(--accent-border);
+}
+
+
+/*****************************************************
+ALERTS
+*****************************************************/
+
+.alert-info {
+  background-color: color-mix(in srgb, var(--accent-border) 15%, transparent);
+  border-color: var(--accent-border);
+  color: var(--alert-info-text);
+}
+
+.alert-info .alert-link {
+  color: var(--accent-border);
+}
+
+.alert-warning {
+  background-color: color-mix(in srgb, var(--interactive-hover) 15%, transparent);
+  border-color: var(--interactive-hover);
+  color: var(--alert-warning-text);
+}
+
+.alert-success {
+  background-color: color-mix(in srgb, var(--success) 15%, transparent);
+  border-color: var(--success);
+  color: var(--alert-success-text);
+}
+
+.alert-danger {
+  background-color: color-mix(in srgb, var(--error) 15%, transparent);
+  border-color: var(--accent-primary);
+  color: var(--alert-danger-text);
+}
+
+
+/*****************************************************
+SCROLLSTORY BOXES
+*****************************************************/
+
+.bg-text-box,
+.sticky-bg-content,
+.story-text {
+  background: color-mix(in srgb, var(--bg-page) 92%, transparent);
+  color: var(--text-body);
+  border: 1px solid var(--accent-border-strong);
+  box-shadow: var(--shadow-deep);
+}
+
+.bg-text-box p,
+.sticky-bg-content p,
+.story-text p {
+  color: var(--text-body);
+}
+
+
+/*****************************************************
+TABLES
+*****************************************************/
+
+table {
+  background: var(--bg-card);
+  color: var(--text-body);
+  border-collapse: collapse;
+  border: 1px solid var(--silver-weak);
+}
+
+th,
+td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--silver-weak);
+}
+
+th {
+  background: var(--bg-nav);
+  color: var(--text-on-dark);
+}
+
+tr:nth-child(even) {
+  background: var(--bg-card);
+}
+
+
+/*****************************************************
+FOOTER
+*****************************************************/
+
+footer {
+  background-color: var(--bg-card);
+  border-top: 2px solid var(--accent-border);
+}
+
+
+/*****************************************************
+DIVIDERS
+*****************************************************/
+
+hr {
+  border-color: var(--silver-strong);
+}
+
+
+/*****************************************************
+LINKS
+*****************************************************/
+
+a {
+  color: var(--accent-border);
+  border-bottom: 1px dotted var(--accent-border);
+}
+
+a:visited {
+  color: var(--accent-border);
+  border-bottom: 1px dotted var(--accent-border);
+}
+
+a:hover {
+  color: var(--interactive-hover);
+  border-bottom-color: var(--interactive-hover);
+}
+
+a:focus-visible,
+.nav-link:focus-visible,
+.btn:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 2px;
+}

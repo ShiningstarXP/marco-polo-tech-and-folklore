@@ -1,0 +1,21 @@
+{% comment %}
+  Google Analytics — loaded only when:
+  - jekyll.environment == 'production'
+  - site.analytics_id is set (usually via private config overlay)
+
+  Recommended setup:
+  1) Keep _config.yml public with analytics_id blank.
+  2) Put the real ID in an ignored file (_config.local.yml or _config.analytics.yml).
+  3) Build with merged config files.
+{% endcomment %}
+
+{% if jekyll.environment == 'production' and site.analytics_id and site.analytics_id != '' %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ site.analytics_id }}');
+</script>
+{% endif %}

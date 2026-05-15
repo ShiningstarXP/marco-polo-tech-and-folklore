@@ -1,0 +1,30 @@
+{% capture image-path %}
+{% include images/image-path.html image-path=include.image-path %}
+{% endcapture %}
+
+{% assign image-path = image-path | strip %}
+
+{::nomarkdown}
+</div> <!-- close container for bg work-->
+{:/nomarkdown}
+
+<div  class = "bg-multi-container" 
+      style = "height: auto"
+      id = "{{ include.bg-id }}-container">
+
+  <div class="bg-multi"
+        style = "background-image: url('{{ image-path }}')"
+        id = "{{ include.bg-id }}-image">
+  </div>
+
+  <div style="height: {{ include.above-box-space }}">&nbsp;</div>
+
+  <!--
+    Leave the below div open!
+    This allows a large textbox to be in the markdown file rather than in the include,
+    which is much easier to edit and manage.
+    Close this div on your page by including the bg-multi-long-close.html file
+    after your text box content.
+  -->
+  {% assign box_align = include.box-align | default: 'center' %}
+  <div id="{{ include.bg-id }}-textbox" class="bg-text-box{% if box_align != 'center' %} bg-text-box--{{ box_align }}{% endif %}" markdown="1">

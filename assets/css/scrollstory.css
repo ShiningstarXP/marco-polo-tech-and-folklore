@@ -1,0 +1,121 @@
+/* Scrollstory specific styles - fonts imported in base.css */
+/* Typography overrides for scrollstory pages — box model handled by base.css grid */
+.container {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.4em;
+}
+
+.container p {
+  /* Typography */
+  line-height: 1.6em;
+}
+
+/* Text boxes within background images */
+.bg-text-box {
+  /* Typography */
+  font-family: var(--font-serif);
+}
+
+.container h1,
+.container h2,
+.container h3,
+.container h4,
+.container h5 {
+  /* Typography */
+  font-family: var(--font-body);
+  font-weight: normal;
+  letter-spacing: normal;
+}
+
+/* Story sections with full viewport height */
+.story-section {
+  /* Display */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Box Model */
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Sticky elements for scroll-based reveals */
+.sticky-content {
+  /* Positioning */
+  position: sticky;
+  top: 0;
+  
+  /* Display */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Box Model */
+  height: 100vh;
+}
+
+/* Text overlays for images/media */
+.story-text {
+  /* Box Model */
+  max-width: 600px;
+  padding: 2rem;
+  
+  /* Visual */
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Full-width background sections */
+.full-width-section {
+  /* Positioning */
+  position: relative;
+  left: 50%;
+  right: 50%;
+  
+  /* Box Model */
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Step-based narrative sections */
+.story-step {
+  /* Box Model */
+  max-width: 800px;
+  padding: 3rem 2rem;
+  margin: 2rem auto;
+}
+
+/* Media containers */
+.story-media {
+  /* Positioning */
+  position: sticky;
+  top: 0;
+  
+  /* Box Model */
+  width: 100%;
+  height: 100vh;
+  
+  /* Visual */
+  object-fit: cover;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .story-section {
+    /* Box Model */
+    padding: 1rem;
+  }
+  
+  .story-text {
+    /* Box Model */
+    padding: 1.5rem;
+  }
+  
+  .story-step {
+    /* Box Model */
+    padding: 2rem 1rem;
+  }
+}

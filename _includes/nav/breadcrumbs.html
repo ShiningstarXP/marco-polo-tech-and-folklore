@@ -1,0 +1,16 @@
+<ol class="breadcrumb-nav-list" aria-label="Breadcrumb">
+  <li class="breadcrumb-nav-list-item"><a href="{{ site.baseurl }}/">Home</a></li>
+  {% assign segments = page.url | split: '/' %}
+  {% assign path = site.baseurl %}
+  {% for segment in segments %}
+    {% if segment != "" and segment != "index.html" and segment != "index.md" %}
+      {% assign path = path | append: '/' | append: segment %}
+      {% assign label = segment | replace: '-', ' ' | replace: '.html', '' | replace: '.md', '' | capitalize %}
+      {% if forloop.last %}
+        <li class="breadcrumb-nav-list-item" aria-current="page"><span>{{ label }}</span></li>
+      {% else %}
+        <li class="breadcrumb-nav-list-item"><a href="{{ path }}">{{ label }}</a></li>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</ol>

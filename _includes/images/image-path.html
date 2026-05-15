@@ -1,0 +1,17 @@
+{% if include.image-path %}
+  {% assign first_char = include.image-path | strip | slice: 0, 1 %}
+  {% if first_char == '/' %}
+    {%- comment -%}Absolute path from site root{%- endcomment -%}
+    {{ site.baseurl }}{{ include.image-path }}
+  {% elsif include.image-path contains 'http' %}
+    {%- comment -%}External URL{%- endcomment -%}
+    {{ include.image-path }}
+  {% else %}
+    {%- comment -%}Relative path - use page-dir if provided, otherwise use page.dir{%- endcomment -%}
+    {% if include.page-dir %}
+      {{ site.baseurl }}{{ include.page-dir }}{{ include.image-path }}
+    {% else %}
+      {{ site.baseurl }}{{ page.dir }}{{ include.image-path }}
+    {% endif %}
+  {% endif %}
+{% else %}<!-- xanthan warning: image-path include called without image-path parameter -->{% endif %}

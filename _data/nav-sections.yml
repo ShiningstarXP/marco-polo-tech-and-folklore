@@ -1,0 +1,7 @@
+sections:
+  - name: first
+    display: First Category
+  - name: second
+    display: Second Category  
+  - name: piano
+    display: Piano Category

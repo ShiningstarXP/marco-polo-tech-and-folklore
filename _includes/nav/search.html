@@ -1,0 +1,98 @@
+<!--
+  Search overlay
+
+  This include renders a full-screen search overlay triggered by
+  the magnifying glass icon in the navbar. It loads the search index
+  JSON that Jekyll generates at build time and uses Lunr.js for
+  client-side full-text search.
+
+  Requires:
+  - assets/js/vendor/lunr.min.js (Lunr library)
+  - assets/js/search.js (Xanthan search module)
+  - assets/css/search.css (search styles)
+  - assets/search-index.json (Jekyll-generated index)
+
+  Enabled when site.search is true in _config.yml.
+-->
+
+{% if site.search %}
+<div class="search-overlay" id="search-overlay" role="dialog" aria-label="Site search" aria-hidden="true">
+  <button class="search-close" id="search-close" aria-label="Close search">&times;</button>
+  <div class="search-overlay-inner">
+    <div class="search-input-wrapper">
+      <input
+        type="search"
+        id="search-input"
+        class="search-input"
+        placeholder="Search this site..."
+        autocomplete="off"
+        data-baseurl="{{ site.baseurl }}"
+      >
+    </div>
+    <div id="search-results" class="search-results"></div>
+    <p class="search-hint"><kbd>Esc</kbd> to close</p>
+  </div>
+</div>
+
+<script>
+(function() {
+  var overlay = document.getElementById('search-overlay');
+  var input = document.getElementById('search-input');
+  var closeBtn = document.getElementById('search-close');
+  var toggleBtn = document.getElementById('search-toggle');
+
+  if (!overlay || !input) return;
+
+  function openSearch() {
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() { input.focus(); }, 100);
+  }
+
+  function closeSearch() {
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (toggleBtn) toggleBtn.focus();
+  }
+
+  // Toggle button in navbar
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openSearch();
+    });
+  }
+
+  // Close button
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeSearch);
+  }
+
+  // Escape key closes overlay
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+      closeSearch();
+    }
+  });
+
+  // Click outside the inner box closes overlay
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) {
+      closeSearch();
+    }
+  });
+
+  // Keyboard shortcut: / opens search (when not typing in an input)
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '/' && !overlay.classList.contains('active')) {
+      var tag = document.activeElement.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement.contentEditable === 'true') return;
+      e.preventDefault();
+      openSearch();
+    }
+  });
+})();
+</script>
+{% endif %}

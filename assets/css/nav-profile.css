@@ -1,0 +1,94 @@
+/*****************************************************
+PROFILE SIDEBAR
+Profile-based sidebar for portfolio sites
+*****************************************************/
+
+.left-bar {
+  padding: var(--spacing-md);
+  background: var(--bg-card);
+  border-right: 1px solid var(--accent-border);
+}
+
+.profile {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--accent-border);
+  text-align: center;
+}
+
+.profile img {
+  width: 100%;
+  height: auto;
+  margin: 0 auto var(--spacing-md);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-border);
+  display: block;
+}
+
+.profile h2 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 1.5rem;
+  text-align: center;
+  color: var(--text-body);
+}
+
+.profile p {
+  margin: 1rem 0 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.left-bar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.left-bar li {
+  margin-bottom: var(--spacing-xs);
+}
+
+.sidebar-link {
+  display: block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  text-decoration: none;
+  color: var(--text-body);
+  font-size: 0.95rem;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.sidebar-link:hover {
+  background: var(--bg-card);
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+
+.sidebar-link i {
+  margin-right: var(--spacing-xs);
+  width: 1.2em;
+  text-align: center;
+}
+
+.sidebar-link.link-fw-bold {
+  font-weight: 600;
+}
+
+.sidebar-link.link-fw-normal {
+  font-weight: 400;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .left-bar {
+    border-right: none;
+    border-bottom: 1px solid var(--accent-border);
+  }
+
+  .profile img {
+    width: 80px;
+    height: 80px;
+  }
+}

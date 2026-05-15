@@ -1,0 +1,15 @@
+{% capture img1_url %}
+{% include images/image-path.html image-path=include.image1 %}
+{% endcapture %}
+{% capture img2_url %}
+{% include images/image-path.html image-path=include.image2 %}
+{% endcapture %}
+<div id="juxtapose-wrapper" class="juxtapose" data-startingposition="{{include.starting-position | default: 50%}}"
+  data-label="{{include.data-label}}" data-credit="{{include.data-credit}}" data-showlabels="false"
+  data-showcredits="false" data-animate="false">
+  <img src="{{ img1_url | strip }}" />
+  <img src="{{ img2_url | strip }}" />
+</div>
+<figcaption class="{{ include.class }}">
+  {{ include.caption | markdownify }}
+</figcaption>

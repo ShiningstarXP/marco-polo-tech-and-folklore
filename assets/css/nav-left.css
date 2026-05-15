@@ -1,0 +1,57 @@
+/*****************************************************
+LEFT NAVIGATION SIDEBAR
+Vertical navigation for content hierarchies
+*****************************************************/
+
+.left-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 25vw;
+  height: 100vh;
+  padding: var(--spacing-lg) var(--spacing-sm);
+  overflow-y: auto;
+  background: var(--bg-page);
+  border-right: 1px solid var(--accent-border);
+  box-shadow: var(--shadow-md);
+}
+
+h2.left-bar-nav-section {
+  margin-top: 1.3rem;
+  padding-left: 0;
+  font-size: 1.2rem;
+  letter-spacing: -0.02rem;
+  color: var(--text-body);
+  border-bottom: 1px solid var(--accent-border);
+}
+
+.left-bar ul {
+  margin: 0 0 0 var(--spacing-sm);
+  padding: 0;
+  list-style: none;
+}
+
+.left-bar-nav-item {
+  margin: 0 0 var(--spacing-sm) 0;
+  padding: 0;
+}
+
+.left-bar-nav-item a {
+  display: block;
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--text-body);
+  border-radius: 6px;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.left-bar-nav-item a:hover,
+.left-bar-nav-item a.active {
+  text-decoration: underline;
+  color: var(--accent-primary);
+}
+
+.main-content {
+  margin-left: 25vw;
+}

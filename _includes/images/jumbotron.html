@@ -1,0 +1,57 @@
+{% comment %}
+  Jumbotron Component — full-width image with optional text
+  Parameters:
+    - image-path:          path to image (required)
+    - height:              CSS height (e.g. "50vh"; optional)
+    - background-position: CSS background-position (default: "center")
+    - zoom:                CSS background-size (default: "cover")
+    - box-align:           left | right | center — text position + gradient direction (default: "left")
+    - fade-start:          where gradient starts (default: "0%")
+    - fade-end:            where gradient becomes transparent (default: "60%")
+    - bg-color:            gradient color (default: var(--bg-page))
+    - title:               heading text (optional)
+    - text:                body text; markdown supported (optional)
+    - caption:             caption below image; markdown supported (optional)
+{% endcomment %}
+
+{% capture img_url %}{% include images/image-path.html image-path=include.image-path %}{% endcapture %}
+{% assign img_url = img_url | strip %}
+
+{% assign box_align = include.box-align | default: 'left' %}
+{% assign fade_start = include.fade-start | default: '0%' %}
+{% assign fade_end = include.fade-end | default: '60%' %}
+{% assign bg_color = include.bg-color | default: 'var(--bg-page)' %}
+{% assign has_content = include.text | default: include.title %}
+{% if box_align == 'right' %}
+  {% assign gradient_dir = 'to left' %}
+{% else %}
+  {% assign gradient_dir = 'to right' %}
+{% endif %}
+
+<div class="jumbotron jumbotron--{{ box_align }}" style="
+      {% if include.height %}height: {{ include.height }};{% endif %}
+      background-size: {{ include.zoom | default: 'cover' }};
+      background-position: {{ include.background-position | default: 'center' }};
+      background-repeat: no-repeat;
+      {% if has_content and box_align != 'center' %}
+      background-image:
+        linear-gradient({{ gradient_dir }},
+          {{ bg_color }} {{ fade_start }},
+          transparent {{ fade_end }}),
+        url('{{ img_url }}');
+      {% else %}
+      background-image: url('{{ img_url }}');
+      {% endif %}">
+
+  {% if has_content %}
+  <div class="jumbotron-content">
+    {% if include.title %}<h2>{{ include.title }}</h2>{% endif %}
+    {% if include.text %}
+    <div class="jumbotron-text">{{ include.text | markdownify }}</div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+</div>
+
+{% if include.caption %}<figcaption>{{ include.caption | markdownify }}</figcaption>{% endif %}

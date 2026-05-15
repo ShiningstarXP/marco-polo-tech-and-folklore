@@ -1,0 +1,10 @@
+{% comment %}
+  Blockquote Component
+  Parameters:
+    - text:      quote content (required, markdown supported)
+    - box-align: left | right | center (default: center)
+{% endcomment %}
+{% assign box_align = include.box-align | default: 'center' %}
+<blockquote class="{% if box_align != 'center' %}blockquote--{{ box_align }}{% endif %}">
+  {{ include.text | markdownify }}
+</blockquote>

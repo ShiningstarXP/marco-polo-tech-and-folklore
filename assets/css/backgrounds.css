@@ -1,0 +1,228 @@
+/*****************************************************
+BACKGROUNDs
+*****************************************************/
+
+.bg-image {
+  /* Positioning */
+  position: relative;
+  display: block;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  max-width: 100vw;
+  overflow: hidden;
+  
+  /* Visual */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* This makes the background fixed while scrolling */
+}
+
+
+/* Styling the scrolling text box */
+/* 👉 To change font, size, or width for all boxes, edit this block.
+      To reposition a single box, use box-align: left | right in the include. */
+.bg-text-box {
+  /* Positioning */
+  position: relative;
+  z-index: 1;
+
+  /* Box Model */
+  max-width: 30rem;
+  margin: var(--spacing-lg) auto;
+  padding: var(--spacing-md) var(--spacing-lg);
+
+  /* Typography */
+  font-family: var(--font-serif);
+  line-height: 1.6;
+  color: var(--text-body);
+
+  /* Visual */
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Horizontal alignment variants — use box-align: left | right in the include */
+.bg-text-box--left {
+  margin-left: 5%;
+  margin-right: auto;
+}
+
+.bg-text-box--right {
+  margin-left: auto;
+  margin-right: 5%;
+}
+  
+
+.bg-multi-container {
+  /* Positioning */
+  position: relative;
+  
+  /* Box Model */
+  height: auto;
+}
+
+
+.bg-multi {
+  /* Positioning */
+  position: sticky; 
+  top: 0;
+  left: 0;
+  z-index: 0;
+  
+  /* Box Model */
+  width: 100%;
+  height: 100vh;
+  
+  /* Visual */
+  background-size: cover;
+  background-position: center;
+  
+  /* Interactivity */
+  transition: background-image var(--transition-slow);
+}
+
+
+/*****************************************************
+STICKY BACKGROUND
+*****************************************************/
+/* keep next 3 sections together */
+.sticky-bg-container {
+  /* Display */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  
+  /* Box Model */
+  height: auto;
+  
+  /* Visual */
+  background: transparent;
+}
+
+.sticky-bg {
+  /* Positioning */
+  position: sticky;
+  top: 0;
+  grid-row: 1;
+  grid-column: 1;
+  
+  /* Box Model */
+  width: 100%;
+  height: 100vh;
+  
+  /* Visual */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+  
+/* 👉 To change font, size, or width for all sticky boxes, edit this block. */
+.sticky-bg-content {
+  /* Positioning */
+  top: var(--spacing-lg);
+  z-index: 10;
+
+  /* Box Model */
+  max-width: 50rem;
+  margin: var(--spacing-lg) auto;
+  padding: var(--spacing-md) var(--spacing-lg);
+
+  /* Typography */
+  font-family: var(--font-serif);
+  line-height: 1.6;
+  color: var(--text-body);
+
+  /* Visual */
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Horizontal alignment variants — use box-align: left | right in the include */
+.sticky-bg-content--left {
+  margin-left: 5%;
+  margin-right: auto;
+}
+
+.sticky-bg-content--right {
+  margin-left: auto;
+  margin-right: 5%;
+}
+
+
+
+/*****************************************************
+SIDE SCROLL
+*****************************************************/
+
+.side-scroll-container {
+  /* Box Model */
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 1rem;
+}
+
+.ss-text-box {
+  /* Box Model */
+  width: 42%;
+  padding-right: 2rem;
+}
+
+.ss-image-container {
+  /* Positioning */
+  position: sticky;
+  top: 1rem;
+  float: right;
+
+  /* Box Model */
+  max-width: 56%;
+  padding-left: 1rem;
+}
+
+.ss-image {
+  /* Box Model */
+  width: 100%;
+  height: auto;
+
+  /* Visual */
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+/* Mobile: Stack content vertically */
+@media (max-width: 768px) {
+  .side-scroll-container {
+    /* Box Model */
+    padding: 0 1rem;
+  }
+
+  .ss-text-box {
+    /* Box Model */
+    width: 100%;
+    padding-right: 0;
+    margin-bottom: 2rem;
+  }
+
+  .ss-image-container {
+    /* Positioning */
+    position: relative;
+    top: auto;
+    float: none;
+
+    /* Box Model */
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 2rem;
+  }
+
+  .ss-image {
+    /* Box Model */
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+}
+

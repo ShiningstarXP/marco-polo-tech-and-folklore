@@ -1,0 +1,55 @@
+{% comment %}
+  Card Stack Component - Horizontal cards for stacked layouts
+
+  Usage:
+    {% include nav/card-stack.html cards=pages show-tags=true %}
+
+  Parameters:
+    - cards: array of page/card objects to display
+    - show-tags: (optional, default true) whether to display tags on cards
+    - tag-data: (optional, default false) add data-tags attribute for filtering
+
+  Per-card image control: see nav/card-image.html for thumbnail, thumbnail-position, thumbnail-zoom
+{% endcomment %}
+
+{% assign show_tags = include.show-tags | default: true %}
+{% assign tag_data = include.tag-data | default: false %}
+{% assign sorted_cards = include.cards | sort: "position" %}
+
+{% for card in sorted_cards %}
+{% if card.title and card.title != "" %}
+  {% assign card_image = card.thumbnail %}
+  {% assign card_href = card.link | default: card.url %}
+  {% capture card_href_resolved %}{% include links/link-path.html link=card_href %}{% endcapture %}
+  {% assign card_summary = card.summary | default: card.description | default: card.excerpt | strip_html | truncate: 160 %}
+  {% if tag_data and card.tags %}
+    {% assign page_tags = card.tags | join: "|" | downcase %}
+  {% endif %}
+  <div class="card h-card{% if tag_data %} tag-card{% endif %}"{% if tag_data and page_tags %} data-tags="{{ page_tags }}"{% endif %}>
+    <a href="{{ card_href_resolved | strip }}" class="card-link">
+      
+      <!-- Image -->
+      {% if card_image %}
+        {% include nav/card-image.html card=card class="card-img-left" %}
+      {% endif %}
+      
+      <!-- Content -->
+      <div class="card-body">
+        <div>
+          <h3>{{ card.title }}</h3>
+          <p class="card-text">{{ card_summary }}</p>
+        </div>
+        
+        {% if show_tags and card.tags %}
+          <div class="tags">
+            {% for tag in card.tags %}
+              <span class="tag-pill">{{ tag }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      
+    </a>
+  </div>
+{% endif %}
+{% endfor %}

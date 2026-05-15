@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: " en" }}">
+
+{% include html/html-head.html %}
+
+<!-- Map-specific CSS -->
+<link rel="stylesheet" href="{{ '/assets/css/map.css' | relative_url }}">
+
+<body>
+
+  <div class="page-wrap">
+
+    {% include nav/nav-top.html %}
+
+    {{ content }}
+
+    {% include layout/footer.html %}
+
+  {% include nav/search.html %}
+
+  </div> <!-- /page-wrap -->
+
+  {% include google_analytics.html %}
+
+  {% include html/html-js.html %}
+
+</body>
+
+</html>

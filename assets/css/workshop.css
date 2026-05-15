@@ -1,0 +1,75 @@
+/*****************************************************
+WORKSHOP MODE — Live presentation bullet highlighting
+
+This file is always loaded (see _includes/html/html-head.html).
+Workshop mode is toggled via the nav checkbox in nav-top.html.
+
+When active, list items can be highlighted one at a time
+using keyboard controls. See assets/js/workshop.js.
+*****************************************************/
+
+@media screen {
+
+/* Base transition on all list items — enables smooth animation into highlighted state */
+ul li {
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-normal), border var(--transition-normal), transform var(--transition-normal);
+}
+
+/* Highlighted state — applied via JS during workshop presentations */
+ul li.highlighted {
+  /* Box Model */
+  margin: var(--spacing-xs) 0;
+  padding: var(--spacing-sm) var(--spacing-md);
+
+  /* Typography */
+  font-size: 1.15em;
+  font-weight: 600;
+
+  /* Visual */
+  background-color: var(--warning-bg);
+  border: 3px solid var(--warning);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-hover);
+  transform: translateX(12px);
+}
+
+ul li.highlighted::marker {
+  font-weight: bold;
+  color: var(--warning);
+}
+
+/* Fixed overlay showing keyboard shortcut hints during workshop mode */
+.workshop-controls {
+  /* Positioning */
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+
+  /* Box Model */
+  padding: 10px 15px;
+
+  /* Typography */
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--white);
+
+  /* Visual */
+  background: var(--overlay-dark);
+  border-radius: var(--radius-md);
+  opacity: 0;
+
+  /* Interactivity */
+  transition: opacity var(--transition-normal);
+}
+
+.workshop-controls.visible {
+  opacity: 1;
+}
+
+.workshop-controls.fade-out {
+  opacity: 0;
+}
+
+} /* end media screen */

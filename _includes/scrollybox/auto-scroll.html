@@ -1,0 +1,153 @@
+<!-- Auto-scroll functionality for ScrollStories
+     Press 'p' to play/pause smooth auto-scrolling
+     Useful for demos and creating GIFs
+-->
+
+<style>
+.auto-scroll-indicator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.auto-scroll-indicator.visible {
+  opacity: 1;
+}
+
+.auto-scroll-indicator.active {
+  background: var(--accent-primary, #6b8e7f);
+}
+</style>
+
+<div id="auto-scroll-indicator" class="auto-scroll-indicator">
+  Press 'P' to auto-scroll
+</div>
+
+<script>
+(function() {
+  let isScrolling = false;
+  let animationFrameId = null;
+  const indicator = document.getElementById('auto-scroll-indicator');
+
+  // Configuration - pixels per second
+  const scrollSpeed = {{ include.speed | default: 100 }}; // pixels per second
+  let lastTimestamp = null;
+
+  // Show indicator on page load
+  setTimeout(() => {
+    indicator.classList.add('visible');
+    setTimeout(() => {
+      indicator.classList.remove('visible');
+    }, 3000);
+  }, 1000);
+
+  function scroll(timestamp) {
+    if (!isScrolling) return;
+
+    if (lastTimestamp === null) {
+      lastTimestamp = timestamp;
+    }
+
+    const elapsed = timestamp - lastTimestamp;
+    const distance = (scrollSpeed * elapsed) / 1000; // Convert to pixels based on time
+
+    window.scrollBy({
+      top: distance,
+      behavior: 'instant'
+    });
+    lastTimestamp = timestamp;
+
+    // Stop if we've reached the bottom (with larger buffer for fast scrolling)
+    const scrollBottom = window.innerHeight + window.pageYOffset;
+    const pageBottom = document.body.offsetHeight;
+    if (scrollBottom >= pageBottom - 2) {
+      stopAutoScroll();
+      return;
+    }
+
+    animationFrameId = requestAnimationFrame(scroll);
+  }
+
+  function startAutoScroll() {
+    if (isScrolling) return;
+
+    isScrolling = true;
+    lastTimestamp = null;
+    indicator.textContent = 'Auto-scrolling (P to pause)';
+    indicator.classList.add('visible', 'active');
+
+    animationFrameId = requestAnimationFrame(scroll);
+  }
+
+  function stopAutoScroll() {
+    if (!isScrolling) return;
+
+    isScrolling = false;
+    lastTimestamp = null;
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+    indicator.textContent = 'Auto-scroll paused (P to resume)';
+    indicator.classList.remove('active');
+
+    setTimeout(() => {
+      indicator.classList.remove('visible');
+    }, 2000);
+  }
+
+  function toggleAutoScroll() {
+    if (isScrolling) {
+      stopAutoScroll();
+    } else {
+      startAutoScroll();
+    }
+  }
+
+  // Keyboard control
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'p' || e.key === 'P') {
+      e.preventDefault();
+      toggleAutoScroll();
+    }
+
+    // Pause on ESC
+    if (e.key === 'Escape' && isScrolling) {
+      stopAutoScroll();
+    }
+
+    // Also pause if user manually scrolls or presses arrow keys
+    if (isScrolling && ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End'].includes(e.key)) {
+      stopAutoScroll();
+    }
+  });
+
+  // Pause on manual scroll
+  let scrollTimeout;
+  window.addEventListener('wheel', () => {
+    if (isScrolling) {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        stopAutoScroll();
+      }, 100);
+    }
+  });
+
+  // Pause on manual touch
+  window.addEventListener('touchstart', () => {
+    if (isScrolling) {
+      stopAutoScroll();
+    }
+  });
+})();
+</script>

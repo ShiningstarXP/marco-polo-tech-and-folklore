@@ -1,0 +1,21 @@
+settings:
+  links_font_weight: normal
+
+image_url: /assets/images/profile/headshot_sketch.png
+alt_text: "Sample profile photo"
+name: Jordan Casey
+description: A digital humanist and scholar exploring innovative approaches to digital research and public engagement. Passionate about open-source tools and collaborative scholarship.
+
+links:
+  - title: Personal Website
+    url: https://example.com
+    icon: fas fa-globe
+  - title: GitHub
+    url: https://github.com
+    icon: fab fa-github
+  - title: Twitter
+    url: https://twitter.com
+    icon: fab fa-twitter
+  - title: Email
+    url: mailto:contact@example.com
+    icon: fas fa-envelope

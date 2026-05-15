@@ -1,0 +1,58 @@
+/* === Terra Cotta Theme === */
+/*
+  Load this AFTER base.css, typography.css, nav.css, and cards.css in page-header.html
+
+  This theme preserves Xanthan's original warm, earthy aesthetic.
+
+  Color Philosophy:
+  - Terra cotta clay as the primary accent (headings, links, buttons)
+  - Sage green for secondary elements and subtle contrast
+  - Warm sand and bone backgrounds for organic, handcrafted feel
+  - Deep brown navigation and footer for grounding
+
+  Best for:
+  - Sites wanting a natural, artisanal feel
+  - Projects emphasizing traditional or handcrafted work
+  - Warm, approachable scholarly presentations
+*/
+
+/*****************************************************
+CSS VARIABLE OVERRIDES
+*****************************************************/
+:root {
+  /* ===== Terra Cotta Color Palette ===== */
+  --clay: #c05131;
+  --sage-tc: #8a9a7b;          /* Renamed to avoid conflict with base.css --sage */
+  --sage-tc-dark: #5d6b52;
+  --sage-tc-light: #a5b399;
+  --sand: #e8dcc8;
+  --sand-light: #f5f1e8;
+  --brown: #6b4423;
+  --bone: #F5EFE6;
+  --dark-brown: #3d2817;
+
+  /* ===== Override Base Theme Variables ===== */
+  /* These MUST match variable names in base.css */
+
+  /* Backgrounds */
+  --bg-page: var(--bone);
+  --bg-card: var(--sand);
+  --bg-code: var(--sand-light);
+  --bg-nav: var(--dark-brown);
+
+  /* Text */
+  --text-body: #3a1602;
+  --text-on-dark: var(--sand);
+  --text-muted: #666;
+
+  /* Accents & Interactive */
+  --accent-primary: var(--clay);
+  --accent-border: var(--brown);
+  --interactive-hover: var(--clay);
+
+  /* Keep default fonts from base.css - uncomment to override */
+  /* --font-heading: 'Inter', sans-serif; */
+  /* --font-body: 'Source Sans 3', sans-serif; */
+  /* --font-serif: 'Lora', serif; */
+  /* --font-mono: 'Fira Mono', monospace; */
+}

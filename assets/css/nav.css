@@ -1,0 +1,359 @@
+/*****************************************************
+NAVIGATION
+*****************************************************/
+
+@media screen {
+
+/*****************************************************
+TOPNAV
+*****************************************************/
+
+.top-nav {
+  /* Box Model */
+  padding: 0.1rem var(--spacing-sm);
+
+  /* Typography */
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-on-dark);
+
+  /* Visual */
+  background-color: color-mix(in srgb, var(--bg-nav) 92%, transparent);
+  border-bottom: none;
+
+  /* Position — sticky so nav locks to top when scrolled past */
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+/* On hero pages: nav overlays the header image instead of sitting above it.
+   Uses :has() to scope this only to pages with a full-screen hero header.
+   Nav becomes transparent and white; reverts to normal once user scrolls past. */
+.page-wrap:has(.page-header--hero) .top-nav {
+  position: absolute;
+  width: 100%;
+  background: transparent;
+  border-bottom: none;
+}
+
+.page-wrap:has(.page-header--hero) .top-nav-brand,
+.page-wrap:has(.page-header--hero) .top-nav-link,
+.page-wrap:has(.page-header--hero) .top-nav-toggler {
+  color: var(--white);
+}
+
+.page-wrap:has(.page-header--hero) .top-nav-link:hover {
+  color: var(--white);
+  box-shadow: inset 0 -3px 0 var(--white);
+  border-radius: 0;
+}
+
+/* Dropdowns on hero pages need their own solid background since the nav is transparent */
+.page-wrap:has(.page-header--hero) .top-nav-dropdown {
+  background-color: var(--overlay-dark);
+  border-color: var(--border-on-dark);
+}
+
+.page-wrap:has(.page-header--hero) .top-nav-dropdown-item {
+  color: var(--text-on-dark);
+}
+
+.page-wrap:has(.page-header--hero) .top-nav-dropdown-item:hover {
+  color: var(--interactive-hover);
+  border-left-color: var(--interactive-hover);
+}
+
+/* Inner wrapper centers brand + nav as a group */
+.top-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+@media (min-width: 992px) {
+  .top-nav-inner {
+    justify-content: center;
+    gap: var(--spacing-lg);
+    flex-wrap: nowrap;
+  }
+}
+
+.top-nav-brand {
+  /* Typography */
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  text-decoration: none;
+
+  /* Visual */
+  border-bottom: none;
+}
+
+.top-nav-brand:hover {
+  color: var(--text-on-dark);
+}
+
+/* Remove global link styles from all nav elements */
+.top-nav a,
+.top-nav a:visited {
+  border-bottom: none;
+  color: inherit;
+}
+
+.top-nav a:visited:hover,
+.top-nav a:visited:focus {
+  color: var(--interactive-hover);
+}
+
+/* Hamburger button — hidden on desktop */
+.top-nav-toggler {
+  display: flex;
+  align-items: center;
+  padding: 0.35rem 0.5rem;
+  background: transparent;
+  border: 1px solid var(--text-on-dark);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.top-nav-toggler:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+}
+
+.top-nav-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(232, 228, 223, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* Collapsible nav — hidden by default on mobile */
+.top-nav-collapse {
+  display: none;
+  width: 100%;
+  padding-bottom: var(--spacing-sm);
+}
+
+/*
+  Scoped to mobile only so .show never conflicts with the desktop
+  display: flex rule below. This eliminates the need for !important.
+*/
+@media (max-width: 991px) {
+  .top-nav-collapse.show {
+    display: block;
+  }
+}
+
+/* Desktop: always show the nav, no hamburger */
+@media (min-width: 992px) {
+  .top-nav-toggler {
+    display: none;
+  }
+
+  .top-nav-collapse {
+    display: flex;
+    align-items: center;
+    width: auto;
+    padding-bottom: 0;
+  }
+}
+
+.top-nav-list {
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+
+@media (min-width: 992px) {
+  .top-nav-list {
+    flex-direction: row;
+    gap: var(--spacing-md);
+  }
+}
+
+.top-nav-link {
+  /* Box Model */
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+
+  /* Typography */
+  color: var(--text-on-dark);
+  text-decoration: none;
+
+  /* Visual */
+  border-radius: var(--radius-sm);
+
+  /* Interactivity */
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.top-nav-link:hover,
+.top-nav-link:focus {
+  color: var(--interactive-hover);
+  text-decoration: none;
+}
+
+ul .top-nav-dropdown {
+  /* Visibility — hidden by default, shown via JS .show class */
+  display: none;
+
+  /* Positioning */
+  position: absolute;
+  z-index: 100;
+  min-width: 12rem;
+
+  /* Box Model */
+  padding: 0.25rem 0;
+  list-style: none;
+
+  /* Visual */
+  background-color: var(--bg-nav);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+}
+
+ul .top-nav-dropdown.show {
+  display: block;
+}
+
+/* On mobile, dropdown flows inline (not absolutely positioned) */
+@media (max-width: 991px) {
+  ul .top-nav-dropdown {
+    position: static;
+    box-shadow: none;
+    border: none;
+    border-left: 2px solid var(--border-light);
+    border-radius: 0;
+    padding-left: var(--spacing-md);
+    margin-left: var(--spacing-sm);
+  }
+}
+
+.top-nav-dropdown-item {
+  /* Display */
+  display: block;
+
+  /* Box Model */
+  padding: 0.25rem 0.75rem;
+
+  /* Typography */
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: var(--text-on-dark);
+  text-decoration: none;
+
+  /* Visual */
+  background: transparent;
+  border-left: 2px solid transparent;
+
+  /* Interactivity */
+  transition: border-color var(--transition-fast);
+}
+
+.top-nav-dropdown-item:hover,
+.top-nav-dropdown-item:focus {
+  /* Typography */
+  color: var(--interactive-hover);
+  text-decoration: none;
+
+  /* Visual */
+  background: transparent;
+  border-left-color: var(--interactive-hover);
+}
+
+.top-nav-dropdown-divider {
+  /* Box Model */
+  margin: 0.1rem 0;
+
+  /* Visual */
+  border: none;
+  border-top: 1px solid var(--text-on-dark);
+  opacity: 0.3;
+}
+
+.top-nav-link.top-nav-dropdown-toggle[aria-expanded="true"] {
+  color: var(--text-on-dark);
+  background-color: transparent;
+}
+
+/* Position parent li relative for dropdown absolute positioning */
+.top-nav-item.has-dropdown {
+  position: relative;
+}
+
+
+/*****************************************************
+SIDENAV - See nav-left.css and nav-profile.css for sidebar styling
+*****************************************************/
+
+
+
+
+/*****************************************************
+BREADCRUMB NAVIGATION
+*****************************************************/
+.breadcrumb-nav-list {
+  /* Display */
+  display: flex;
+  list-style: none;
+  gap: 8px;
+
+  /* Box Model */
+  margin: 0 0 16px 0;
+  padding: 0;
+}
+
+.breadcrumb-nav-list-item a {
+  /* Typography */
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--info);
+}
+
+.breadcrumb-nav-list-item span {
+  /* Typography */
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+
+.top-nav-workshop-toggle {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding: 0 1rem;
+}
+
+.top-nav-workshop-toggle input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.top-nav-workshop-toggle label {
+  cursor: pointer;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-on-dark);
+}
+
+@media (max-width: 768px) {
+  .top-nav-workshop-toggle {
+    padding: 0.5rem 1rem;
+    border-top: 1px solid var(--border-light);
+  }
+}
+
+} /* end media screen */

@@ -1,0 +1,15 @@
+
+- title: "About"
+  url: "/about"
+
+- title: "Your Story"
+  url: "/your-story"
+
+- title: "Bibliography"
+  url: "/bibliography"
+
+- title: "Instructions"
+  url: "/instructions"
+
+- title: "Docs"
+  url: "/docs"

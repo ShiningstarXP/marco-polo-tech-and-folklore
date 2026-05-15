@@ -1,0 +1,75 @@
+{% capture image-path %}
+{% include images/image-path.html image-path=include.image-path %}
+{% endcapture %}
+
+{% assign image-path = image-path | strip %}
+
+<div class="bg-switch" id="{{ include.switch-id }}"
+    style="background-image: url('{{image-path}}')">
+</div>
+
+<script>
+/* switch_marker = document.getElementById('{{ include.switch-id }}'); */
+background_orig = document.getElementById('{{ include.bg-id }}-image').style.backgroundImage;
+container = document.getElementById('{{ include.bg-id }}-textbox');
+background = document.getElementById('{{ include.bg-id }}-image');
+containerHeight = container.scrollHeight;
+viewHeight = window.innerHeight;
+
+window.addEventListener('scroll', () => {
+    /*const scrollPosition = window.scrollY;*/
+    bgSet = false;
+    containterRect = container.getBoundingClientRect();
+    containerY = containterRect['y'];
+    containerBottom = containerY + containerHeight;
+    
+    if (containerBottom < viewHeight/2) {
+        console.log("containerBottom " + containerBottom +  " less than" + viewHeight/2 );
+        /*
+        background.style.position = "sticky";
+        background.style.top = "0";
+        */
+    }
+
+    Array.from(document.getElementsByClassName("bg-switch")).forEach(
+        function(el, index, array) {
+            // do stuff
+
+            rect = el.getBoundingClientRect();
+            ypos = rect['y'];
+            console.log(el.id + ": " + ypos);
+            /*scrolltext.innerText = text;*/
+            
+            console.log(viewHeight);
+            console.log(array.length);
+            console.log(index);
+            
+            /* reset to original bg if out of viewport */
+            if (index == 0 && ypos > viewHeight) {
+                console.log("first switch out of view. resetting...");
+                background.style.backgroundImage = background_orig;
+
+            } else if (index == array.length-1 && ypos < 0 ) {
+                console.log("last switch out of view. resetting...");
+        
+                /*background.style.backgroundImage = background_orig;*/
+
+            }
+            
+            if (!bgSet && ypos > viewHeight*.3 && ypos < viewHeight*.6) {
+                console.log("setting bg")
+                console.log(el.style.backgroundImage)
+                background.style.backgroundImage = el.style.backgroundImage;
+                bgSet = true;
+            }
+        }
+    );
+    
+    /* keep bg hidden if not in viewport 
+    if (ypos > 0 ) {background.style.visibility = "hidden"} 
+    else {background.style.visibility = "visible"}
+    */
+    
+
+});
+</script>

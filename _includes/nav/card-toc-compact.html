@@ -1,0 +1,30 @@
+{% assign rows = include.rows | sort: "position" %}
+
+{% for row in rows %}
+<div class="toc-row-compact">
+  {% assign link = row.link | default: row.url %}
+  {% capture link_resolved %}{% include links/link-path.html link=link %}{% endcapture %}
+<a href="{{ link_resolved | strip }}">
+  <div class="toc-row-flex">
+    <div class="toc-body">
+      <h3>{{ row.title }}</h3>
+      {% if row.summary %}
+        <p>{{ row.summary }}</p>
+      {% endif %}
+      {% if row.topics %}
+        <ul>
+          {% for topic in row.topics %}
+            <li>{{ topic }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    <span class="toc-arrow">
+      <svg width="24" height="24" viewBox="0 0 24 24">
+        <polyline points="9,6 15,12 9,18" fill="none" stroke="var(--golden-clay)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </span>
+  </div>
+</a>
+</div>
+{% endfor %}

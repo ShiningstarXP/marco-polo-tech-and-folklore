@@ -1,0 +1,74 @@
+{% comment %}
+  Header Studio — typography-forward dark header with three tiers and five filter modes.
+  Activated automatically when a page has header-image in front matter.
+
+  Parameters:
+    image-path:  background image path (required)
+    caption:     optional image credit shown at bottom-right of header
+    tier:        hero | section | banner (default: hero)
+                 Heights: hero 100vh, section 60vh, banner 22vh
+    filter:      botanical | sketch | woodcut | etching | photo (default: photo)
+                 botanical  = line-art engravings on white bg (invert + tint + screen blend)
+                              requires: dark lines on white or near-white background
+                 sketch     = like botanical but pre-contrast boost to darken faint lines;
+                              use when botanical produces lines that are barely visible
+                 woodcut    = historical images with natural color preserved; slight darken only
+                 etching    = color photos → high-contrast silhouette + tint
+                 photo      = color photos kept photographic (darkened, slight desaturate)
+    bg-position: CSS background-position (default: center right)
+                 e.g. "left center", "80% 50%", "center top"
+    bg-opacity:  override CSS opacity (0–1). Defaults: hero 0.28, section 0.18, banner 0.10
+    zoom:        zoom level as a percentage (default: cover). e.g. "150%" zooms in
+    title:       page title (shown in all tiers)
+    eyebrow:     small caps line above title (hero only)
+    divider:     text between decorative lines (hero only)
+    subtitle:    paragraph below title (hero only)
+    height:      override CSS default height (e.g. "60vh")
+{% endcomment %}
+
+{% assign tier = include.tier | default: 'hero' %}
+{% assign filter = include.filter | default: 'photo' %}
+
+{% capture img_url %}
+{% if include.image-path %}{% include images/image-path.html image-path=include.image-path %}{% endif %}
+{% endcapture %}
+{% assign img_url = img_url | strip %}
+
+<div class="page-header page-header--{{ tier }}"{% if include.height %} style="height: {{ include.height }};"{% endif %}>
+  {% if img_url != '' %}
+  <div class="page-header-bg page-header-bg--{{ filter }}" style="background-image: url('{{ img_url }}'); background-position: {{ include.bg-position | default: 'center right' }};{% if include.bg-opacity %} opacity: {{ include.bg-opacity }};{% endif %}{% if include.zoom %} background-size: {{ include.zoom }};{% endif %}"></div>
+  {% endif %}
+  <div class="page-header-grid"></div>
+  <div class="page-header-bar"></div>
+  <div class="page-header-content">
+    {% if tier == 'hero' %}
+      {% if include.eyebrow %}
+      <div class="page-header-eyebrow">{{ include.eyebrow }}</div>
+      {% endif %}
+      {% if include.title %}
+      <h1>{{ include.title }}</h1>
+      {% endif %}
+      {% if include.divider %}
+      <div class="page-header-divider">
+        <div class="page-header-divider-line"></div>
+        <span>{{ include.divider }}</span>
+        <div class="page-header-divider-line"></div>
+      </div>
+      {% endif %}
+      {% if include.subtitle %}
+      <p>{{ include.subtitle }}</p>
+      {% endif %}
+    {% elsif tier == 'section' %}
+      {% if include.title %}
+      <h1>{{ include.title }}</h1>
+      {% endif %}
+    {% elsif tier == 'banner' %}
+      {% if include.title %}
+      <h1>{{ include.title }}</h1>
+      {% endif %}
+    {% endif %}
+  </div>
+  {% if include.caption %}
+  <div class="page-header-caption">{{ include.caption }}</div>
+  {% endif %}
+</div>

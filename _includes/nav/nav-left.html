@@ -1,0 +1,20 @@
+<!-- Navigation sections configured in _data/nav-sections.yml (template-specific, not synced) -->
+{% for section in site.data.nav-sections.sections %}
+
+{% if {{section.display}} != 'none'}} %}
+<h2 class="left-bar-nav-section">{{section.display}}</h2>
+{% endif %}
+
+{% assign pages = site.pages | sort: 'order' %}
+
+<ul>
+  {% for page in pages %}
+    {% if page.toc-section == section.name %}
+      <li class="left-bar-nav-item {% if page.url == page.url %}active{% endif %}">
+        <a href="{{site.baseurl}}{{page.url}}">{{ page.title }}</a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+{% endfor %}

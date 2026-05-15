@@ -1,0 +1,714 @@
+/*****************************************************
+CARDS
+*****************************************************/
+
+.card {
+  /* Display */
+  overflow: hidden;
+
+  /* Typography */
+  font-family: var(--font-body);
+
+  /* Visual */
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  opacity: 0.9;
+
+  /* Interactivity */
+  transition: transform var(--transition-normal), opacity var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.card:hover {
+  /* Visual */
+  opacity: 1;
+  box-shadow: var(--shadow-lg);
+  border-color: var(--interactive-hover);
+  transform: translateY(-4px);
+}
+
+.card a {
+  /* Typography */
+  text-decoration: none;
+  color: inherit;
+
+  /* Visual */
+  border-bottom: 0;
+}
+
+.card a h3,
+.card a p {
+  /* Typography */
+  color: var(--text-body);
+}
+
+.card-body {
+  /* Box Model */
+  padding: var(--spacing-md);
+
+  /* Typography */
+  font-family: var(--font-body);
+  text-align: left;
+}
+
+.card h3 {
+  /* Box Model */
+  margin: var(--spacing-xs) 0 var(--spacing-sm) 0;
+
+  /* Typography */
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-body);
+}
+
+.card-text {
+  /* Typography */
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--text-muted);
+  text-align: left;
+}
+
+
+/* Vertical cards for grid layouts */
+.v-card {
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  
+  /* Box Model */
+  height: 100%;
+  min-height: 20rem;
+}
+
+.v-card .card-img-top {
+  /* Box Model */
+  width: 100%;
+  height: 15rem;
+
+  /* Visual */
+  overflow: hidden;  /* clips thumbnail-zoom transform */
+}
+
+.v-card .card-img-top img {
+  /* Box Model */
+  width: 100%;
+  height: 100%;
+
+  /* Visual */
+  object-fit: cover;
+}
+
+.v-card .card-body {
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 1 auto;
+}
+
+.v-card:hover {
+  /* Visual */
+  transform: scale(1.03);
+}
+
+
+/* Horizontal cards for stacked layouts */
+.h-card {
+  /* Display */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+
+  /* Box Model */
+  min-height: 14rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.h-card .card-img-left {
+  /* Box Model */
+  flex: 0 0 320px;
+  width: 320px;
+  height: 16rem;
+
+  /* Visual */
+  overflow: hidden;  /* clips thumbnail-zoom transform */
+}
+
+.h-card .card-img-left img {
+  /* Box Model */
+  width: 100%;
+  height: 100%;
+
+  /* Visual */
+  object-fit: cover;
+}
+
+.h-card .card-body {
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1 1 auto;
+}
+
+.h-card:hover {
+  /* Visual */
+  transform: translateX(8px);
+}
+
+/* Card link wrapper */
+.h-card a.card-link {
+  /* Display */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex: 1;
+  
+  /* Typography */
+  text-decoration: none;
+  color: inherit;
+}
+
+.h-card a.card-link:hover {
+  /* Typography */
+  text-decoration: none;
+}
+
+/* Tags in cards */
+.card .tags {
+  /* Display */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  
+  /* Box Model */
+  margin-top: 0.75rem;
+}
+
+.card .tags .badge {
+  /* Box Model */
+  padding: 0.35rem 0.65rem;
+  
+  /* Typography */
+  font-size: 0.85rem;
+  font-weight: normal;
+}
+
+/* Tag pills (inline tags on cards) */
+.tag-pill {
+  display: inline-block;
+  padding: 0.3rem 0.65rem;
+  background: var(--accent-primary);
+  color: var(--text-on-dark);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background var(--transition-fast);
+  border-bottom: none;
+}
+
+/* Override a:visited from typography.css (loads after cards.css) */
+.tag-pill:visited {
+  color: var(--text-on-dark);
+  border-bottom: none;
+}
+
+.tag-pill:hover {
+  background: var(--interactive-hover);
+  color: var(--text-on-dark);
+}
+
+
+/* Card grid layout using CSS Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* ===== TAG PAGE STYLES ===== */
+
+/* Tag filter UI */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem 0;
+  padding: 1rem 0;
+}
+
+.tag-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border-light);
+  color: var(--text-body);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.tag-badge:hover {
+  background: var(--accent-primary);
+  color: var(--text-on-dark);
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.tag-badge.active {
+  background: var(--accent-primary-dark);
+  color: var(--text-on-dark);
+  border-color: var(--accent-primary-dark);
+}
+
+.tag-clear {
+  background: var(--accent-primary-dark);
+  color: var(--text-on-dark);
+  border-color: var(--accent-primary-dark);
+}
+
+.tag-clear:hover {
+  background: var(--interactive-hover);
+  border-color: var(--interactive-hover);
+}
+
+/* Tag page text */
+.tag-help {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.tag-help code {
+  background: var(--bg-code);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.tag-summary {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tag-empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* Ensure card links work properly */
+.v-card a.card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* Legacy Bootstrap-style classes for backwards compatibility */
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+}
+
+.row.row-cols-md-2 {
+  grid-template-columns: 1fr;
+}
+
+.row.row-cols-md-3 {
+  grid-template-columns: 1fr;
+}
+
+.row.row-cols-md-4 {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .row.row-cols-md-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .row.row-cols-md-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .row.row-cols-md-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Responsive: horizontal cards become vertical on small screens */
+@media (max-width: 768px) {
+  .h-card {
+    /* Display */
+    flex-direction: column;
+
+    /* Box Model */
+    margin-left: var(--spacing-md);
+    margin-right: var(--spacing-md);
+  }
+
+  .h-card a.card-link {
+    /* Display */
+    flex-direction: column;
+  }
+
+  .h-card .card-img-left {
+    /* Box Model */
+    flex: 0 0 auto;
+    width: 100%;
+    height: 200px;
+  }
+
+  .card-body {
+    /* Box Model */
+    padding: var(--spacing-xs);
+  }
+
+  .card h3 {
+    /* Box Model */
+    margin: var(--spacing-xs) 0;
+
+    /* Typography */
+    font-size: 1.1rem;
+  }
+
+  .card-text,
+  .card p {
+    /* Box Model */
+    margin-bottom: var(--spacing-xs);
+
+    /* Typography */
+    font-size: 0.9rem;
+  }
+
+  /* Remove text padding inside cards on mobile */
+  .card p,
+  .card h3,
+  .toc-row p,
+  .toc-row h3 {
+    /* Box Model */
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Ensure text is visible in h-cards on mobile */
+  .h-card .card-body h3,
+  .h-card .card-body p {
+    /* Typography */
+    color: var(--text-body);
+  }
+
+  .toc-row {
+    /* Box Model */
+    padding: var(--spacing-sm);
+    margin-left: var(--spacing-md);
+    margin-right: var(--spacing-md);
+  }
+
+  .toc-row-flex {
+    /* Display */
+    justify-content: flex-start;
+    gap: var(--spacing-xs);
+  }
+
+  .toc-body {
+    /* Display */
+    flex: 1;
+  }
+
+  .toc-row h3 {
+    /* Box Model */
+    margin: var(--spacing-xs) 0;
+
+    /* Typography */
+    font-size: 110%;
+  }
+
+  .toc-row p {
+    /* Box Model */
+    margin-bottom: 0;
+
+    /* Typography */
+    font-size: 0.9rem;
+  }
+
+  .toc-arrow {
+    /* Box Model */
+    flex-shrink: 0;
+    /* margin-left: 0 moved to end of file — must come after base .toc-arrow rule */
+  }
+
+  .toc-arrow svg {
+    /* Box Model */
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .v-card {
+    /* Box Model */
+    margin-left: var(--spacing-md);
+    margin-right: var(--spacing-md);
+  }
+}
+
+
+
+
+/*****************************************************
+ToC ROWS
+*****************************************************/
+
+.toc-row {
+  /* Display */
+  align-items: center;
+  overflow: hidden;
+
+  /* Box Model */
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-md);
+
+  /* Typography */
+  font-family: var(--font-body);
+  font-weight: 300;
+
+  /* Visual */
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent-border);
+  border-radius: 6px;
+
+  /* Interactivity */
+  transition: all var(--transition-normal);
+}
+
+.toc-row:hover {
+  /* Visual */
+  border-left-color: var(--interactive-hover);
+
+  /* Interactivity */
+  cursor: pointer;
+}
+
+.toc-row a {
+  /* Typography */
+  font-weight: normal;
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.toc-row h3 {
+  /* Box Model */
+  margin-top: 0;
+
+  /* Typography */
+  font-size: 150%;
+  color: var(--text-body);
+  text-transform: uppercase;
+}
+
+.toc-row p {
+  /* Box Model */
+  margin-bottom: 0;
+
+  /* Typography */
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.toc-row-flex {
+  /* Display */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toc-body {
+  /* Display */
+  flex: 1;
+}
+
+.toc-arrow {
+  /* Display */
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  
+  /* Box Model */
+  margin-left: var(--spacing-lg);
+  
+  /* Visual */
+  opacity: 0.7;
+  
+  /* Interactivity */
+  transition: opacity var(--transition-normal);
+}
+
+.toc-arrow svg {
+  /* Box Model */
+  width: 4rem;
+  height: 4rem;
+}
+
+.toc-row:hover .toc-arrow {
+  /* Visual */
+  opacity: 1;
+}
+
+.toc-row:hover .toc-arrow polyline {
+  stroke: var(--interactive-hover);
+}
+
+/*****************************************************
+COMPACT ToC ROWS (for documentation indexes)
+*****************************************************/
+
+.toc-row-compact {
+  /* Display */
+  align-items: flex-start;
+  overflow: hidden;
+
+  /* Box Model */
+  margin-bottom: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+
+  /* Typography */
+  font-family: var(--font-body);
+  font-weight: 300;
+
+  /* Visual */
+  background: var(--bg-card);
+  border-left: 2px solid var(--accent-border);
+  border-radius: 4px;
+
+  /* Interactivity */
+  transition: all var(--transition-normal);
+}
+
+.toc-row-compact:hover {
+  /* Visual */
+  border-left-color: var(--interactive-hover);
+
+  /* Interactivity */
+  cursor: pointer;
+}
+
+.toc-row-compact a {
+  /* Typography */
+  font-weight: normal;
+  text-decoration: none;
+  color: inherit;
+}
+
+.toc-row-compact h3 {
+  /* Box Model */
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+
+  /* Typography */
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-body);
+}
+
+.toc-row-compact p,
+.toc-row-compact ul {
+  /* Box Model */
+  margin-bottom: 0;
+
+  /* Typography */
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+.toc-row-compact ul {
+  /* Box Model */
+  margin-top: 0.25rem;
+  padding-left: 1.2rem;
+}
+
+.toc-row-compact li {
+  /* Box Model */
+  margin-bottom: 0.1rem;
+}
+
+.toc-row-compact .toc-row-flex {
+  /* Display */
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.toc-row-compact .toc-body {
+  /* Display */
+  flex: 1;
+}
+
+.toc-row-compact .toc-arrow {
+  /* Display */
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  
+  /* Box Model */
+  margin-left: var(--spacing-md);
+  margin-top: 0.2rem;
+  
+  /* Visual */
+  opacity: 0.6;
+  
+  /* Interactivity */
+  transition: opacity var(--transition-normal);
+}
+
+.toc-row-compact .toc-arrow svg {
+  /* Box Model */
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.toc-row-compact:hover .toc-arrow {
+  /* Visual */
+  opacity: 1;
+}
+
+.toc-row-compact:hover .toc-arrow polyline {
+  stroke: var(--interactive-hover);
+}
+
+/*
+  Mobile override for .toc-arrow placed here (after base .toc-arrow rule above)
+  so it wins by source order without needing !important.
+*/
+@media (max-width: 768px) {
+  .toc-arrow {
+    margin-left: 0;
+  }
+}

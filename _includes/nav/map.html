@@ -1,0 +1,215 @@
+<!--
+  Leaflet map include
+
+  Parameters:
+  - id: unique ID for this map instance (required if multiple maps on one page)
+  - height: CSS height value (default: 500px)
+  - width: CSS width value (default: 100%)
+  - class: additional CSS classes (optional)
+  - start_coords: [lat, lng] starting coordinates (default: [44.967, -103.767])
+  - zoom: initial zoom level (default: 4)
+
+  Example usage:
+  See navigation/map.md for usage examples
+-->
+
+{% assign map_id = include.id | default: "map" %}
+{% assign map_height = include.height | default: "700px" %}
+{% assign map_width = include.width | default: "100%" %}
+{% assign map_class = include.class | default: "" %}
+{% assign map_coords = include.start_coords | default: "[44.967, -103.767]" %}
+{% assign map_zoom = include.zoom | default: 4 %}
+
+<!-- Load Leaflet CSS and JS (only load once per page) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Popup styles scoped for this include -->
+<style>
+.popup-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 500px;
+  max-height: 200px;
+  font-family: var(--font-body, sans-serif);
+  background: white;
+  overflow: hidden;
+}
+
+.popup-wrapper img {
+  flex: 0 0 180px;
+  width: 180px;
+  height: 180px;
+  margin-right: 1rem;
+  object-fit: cover;
+  object-position: center;
+}
+
+.popup-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 0;
+  padding: 0.3rem;
+  overflow: auto;
+  line-height: 1.4;
+}
+
+.popup-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.2;
+}
+
+.popup-title a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.popup-title a:hover {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+.popup-placename {
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #666;
+  line-height: 1.1;
+}
+
+.popup-summary {
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  color: #333;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .popup-wrapper {
+    flex-direction: column;
+    width: 300px;
+    max-height: none;
+  }
+
+  .popup-wrapper img {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 180px;
+  }
+}
+
+.leaflet-popup-content p {
+  margin: 1rem 0 0 0;
+}
+</style>
+
+<!-- Map container with padding to allow popups to extend -->
+<div style="position: relative; padding: 20px; margin: -20px; height: {{ map_height }};">
+  <div id="{{ map_id }}" class="{{ map_class }}" style="height: 100%; width: {{ map_width }}; display: block;"></div>
+</div>
+
+<!-- Define JSON data for pages with geo coordinates -->
+<script id="{{ map_id }}-data" type="application/json">
+[
+  {% assign first = true %}
+  {% for page in site.pages %}
+    {% if page.geo %}
+      {% unless first %},{% endunless %}
+      {
+        "title": {{ page.title | jsonify }},
+        "baseurl": {{ site.baseurl | jsonify }},
+        "url": {{ page.url | jsonify }},
+        "headerimage": {{ page["header-image"] | jsonify }},
+        "placename": {{ page.placename | jsonify }},
+        "summary": {{ page.summary | jsonify }},
+        "geo": {{ page.geo | jsonify }}
+      }
+      {% assign first = false %}
+    {% endif %}
+  {% endfor %}
+]
+</script>
+
+<!-- Initialize the map -->
+<script>
+(function() {
+  // Wait for DOM and Leaflet to be ready
+  if (typeof L === 'undefined') {
+    console.error('Leaflet library not loaded');
+    return;
+  }
+
+  function initMap() {
+    // Get the JSON data
+    const dataElement = document.getElementById('{{ map_id }}-data');
+    if (!dataElement) {
+      console.error('Map data element not found');
+      return;
+    }
+
+    const pages = JSON.parse(dataElement.textContent);
+
+    // Initialize the map
+    const mapElement = document.getElementById('{{ map_id }}');
+    if (!mapElement) {
+      console.error('Map container element not found');
+      return;
+    }
+
+    const map = L.map('{{ map_id }}').setView({{ map_coords }}, {{ map_zoom }});
+
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Add markers for each page with geo coordinates
+    pages.forEach(p => {
+      if (!p.geo) return;
+
+      const marker = L.marker(p.geo).addTo(map);
+
+      // Build popup HTML
+      const baseUrl = p.baseurl || "";
+      const imagePath = p.headerimage ? `${baseUrl}${p.url.replace(/\/$/, "")}/${p.headerimage}` : "";
+      const imgHtml = imagePath
+        ? `<img src="${imagePath}" alt="${p.title}">`
+        : "";
+
+      const html = `
+        <div class="popup-wrapper">
+          ${imgHtml}
+          <div class="popup-text">
+            <div class="popup-title"><a href="${p.baseurl}${p.url}">${p.title}</a></div>
+            <p class="popup-placename">${p.placename || ""}</p>
+            <p class="popup-summary">${p.summary || ""}</p>
+          </div>
+        </div>`;
+
+      const popup = L.popup({
+        maxWidth: 500,
+        maxHeight: 200,
+        autoPan: true,
+        autoPanPadding: [50, 50]
+      }).setContent(html);
+      
+      marker.bindPopup(popup);
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMap);
+  } else {
+    initMap();
+  }
+})();
+</script>

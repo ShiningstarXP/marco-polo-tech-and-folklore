@@ -1,0 +1,260 @@
+<!-- Load JavaScript  ================================================== -->
+
+<!-- Juxtapose JS for image comparison -->
+<script src="https://cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.min.js"></script>
+
+<!-- Littlefoot JS for clickable footnote references -->
+<script src="https://unpkg.com/littlefoot/dist/littlefoot.js" type="application/javascript"></script>
+<script type="application/javascript">
+  littlefoot.littlefoot({
+      buttonTemplate: '<button aria-label="Footnote <%= number %>" class="littlefoot__button"><%= number %></button>'
+  });
+</script>
+
+<!-- Splide JS for image carousels -->
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
+
+<!-- Xanthan navbar (mobile collapse + dropdowns) -->
+<script src="{{ site.baseurl }}/assets/js/nav.js"></script>
+
+<!-- Search (loaded when search is enabled in _config.yml) -->
+{% if site.search %}
+<script src="{{ site.baseurl }}/assets/js/vendor/lunr.min.js"></script>
+<script src="{{ site.baseurl }}/assets/js/search.js"></script>
+{% endif %}
+
+<!-- Workshop Bullet Point Highlighting -->
+{% if page.url contains '/guides/' or page.workshop_mode %}
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    let workshopMode = false;
+    let currentHighlight = -1;
+    let bulletPoints = [];
+    let controlsDiv = null;
+    let controlsTimeout = null;
+
+
+    // Sync with navbar toggle
+    const navToggle = document.getElementById('workshopModeToggle');
+    if (navToggle) {
+      navToggle.addEventListener('change', function() {
+        workshopMode = this.checked;
+        
+        if (!workshopMode) {
+          bulletPoints.forEach(li => li.classList.remove('highlighted'));
+          currentHighlight = -1;
+        }
+        
+        updateControls();
+        
+        // Remove focus from toggle so keyboard shortcuts work
+        this.blur();
+      });
+    }
+
+    // Update toggle when 'w' key is pressed
+    function toggleWorkshopMode() {
+      workshopMode = !workshopMode;
+      
+      // Sync navbar toggle if it exists
+      if (navToggle) {
+        navToggle.checked = workshopMode;
+      }
+      
+      if (!workshopMode) {
+        bulletPoints.forEach(li => li.classList.remove('highlighted'));
+        currentHighlight = -1;
+      }
+      
+      updateControls();
+    }
+
+
+    // Initialize bullet points array
+    function initializeBulletPoints() {
+      // Only select bullet points in main content, skip nav elements
+      const mainContent = document.querySelector('.container');
+      if (mainContent) {
+        bulletPoints = Array.from(mainContent.querySelectorAll('ul li'));
+      } else {
+        // Fallback: exclude nav and header elements
+        bulletPoints = Array.from(document.querySelectorAll('ul li')).filter(li => {
+          const closestNav = li.closest('nav, header');
+          return !closestNav;
+        });
+      }
+      
+      bulletPoints.forEach((li, index) => {
+        li.setAttribute('data-bullet-index', index);
+      });
+    }
+
+    // Create controls indicator
+    function createControlsIndicator() {
+      controlsDiv = document.createElement('div');
+      controlsDiv.className = 'workshop-controls';
+      controlsDiv.innerHTML = `
+        <div>Workshop Mode: ${workshopMode ? 'ON' : 'OFF'}</div>
+        <div>↑↓ Navigate | Space: Next | W: Toggle Mode</div>
+        <div>Current: ${currentHighlight + 1}/${bulletPoints.length}</div>
+      `;
+      document.body.appendChild(controlsDiv);
+    }
+
+    // Update controls indicator
+    function updateControls() {
+      if (controlsDiv) {
+        controlsDiv.innerHTML = `
+          <div>Workshop Mode: ${workshopMode ? 'ON' : 'OFF'}</div>
+          <div>↑↓ Navigate | Space: Next | W: Toggle Mode</div>
+          <div>Current: ${currentHighlight + 1}/${bulletPoints.length}</div>
+        `;
+        
+        // Only show controls when workshop mode is ON
+        if (workshopMode) {
+          // Show controls temporarily
+          controlsDiv.classList.remove('fade-out');
+          controlsDiv.classList.add('visible');
+          
+          // Clear existing timeout
+          if (controlsTimeout) {
+            clearTimeout(controlsTimeout);
+          }
+          
+          // Fade out after 3 seconds
+          controlsTimeout = setTimeout(() => {
+            controlsDiv.classList.add('fade-out');
+            setTimeout(() => {
+              controlsDiv.classList.remove('visible');
+              controlsDiv.classList.remove('fade-out');
+            }, 300);
+          }, 3000);
+        } else {
+          // Hide controls immediately when workshop mode is OFF
+          controlsDiv.classList.remove('visible');
+          controlsDiv.classList.remove('fade-out');
+          if (controlsTimeout) {
+            clearTimeout(controlsTimeout);
+          }
+        }
+      }
+    }
+
+    // Highlight specific bullet point
+    function highlightBullet(index) {
+      // Remove previous highlights
+      bulletPoints.forEach(li => li.classList.remove('highlighted'));
+      
+      if (index >= 0 && index < bulletPoints.length) {
+        bulletPoints[index].classList.add('highlighted');
+        // Scroll to highlighted bullet
+        bulletPoints[index].scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
+    }
+
+    // Move to next bullet point
+    function nextBullet() {
+      if (!workshopMode) return;
+      if (currentHighlight < bulletPoints.length - 1) {
+        currentHighlight++;
+        highlightBullet(currentHighlight);
+        updateControls();
+      }
+    }
+
+    // Move to previous bullet point
+    function prevBullet() {
+      if (!workshopMode) return;
+      if (currentHighlight > 0) {
+        currentHighlight--;
+        highlightBullet(currentHighlight);
+        updateControls();
+      }
+    }
+
+    // Toggle workshop mode
+    function toggleWorkshopMode() {
+      workshopMode = !workshopMode;
+      
+      // Sync navbar toggle if it exists
+      if (navToggle) {
+        navToggle.checked = workshopMode;
+      }
+      
+      if (!workshopMode) {
+        // Clear all highlights
+        bulletPoints.forEach(li => li.classList.remove('highlighted'));
+        currentHighlight = -1;
+      }
+      
+      updateControls();
+    }
+
+    // Keyboard event handler
+    function handleKeyboard(event) {
+      // Don't interfere with form inputs, contenteditable, toggle switch, or when modifier keys are pressed
+      const activeElement = document.activeElement;
+      if (activeElement.tagName === 'INPUT' || 
+          activeElement.tagName === 'TEXTAREA' || 
+          activeElement.contentEditable === 'true' ||
+          activeElement.id === 'workshopModeToggle' ||
+          event.ctrlKey || event.metaKey || event.altKey) {
+        return;
+      }
+
+      if (!workshopMode) {
+        // Only respond to 'w' key when not in workshop mode
+        if (event.key.toLowerCase() === 'w') {
+          event.preventDefault();
+          toggleWorkshopMode();
+        }
+        return;
+      }
+
+      switch(event.key) {
+        case 'ArrowDown':
+        case ' ': // Space key
+          event.preventDefault();
+          nextBullet();
+          break;
+        case 'ArrowUp':
+          event.preventDefault();
+          prevBullet();
+          break;
+        case 'w':
+        case 'W':
+          event.preventDefault();
+          toggleWorkshopMode();
+          break;
+        case 'Home':
+          event.preventDefault();
+          currentHighlight = -1;
+          nextBullet();
+          break;
+        case 'End':
+          event.preventDefault();
+          currentHighlight = bulletPoints.length - 1;
+          highlightBullet(currentHighlight);
+          updateControls();
+          break;
+        case 'Escape':
+          event.preventDefault();
+          toggleWorkshopMode();
+          break;
+      }
+    }
+
+    // Initialize everything
+    initializeBulletPoints();
+    createControlsIndicator();
+    
+    // Add keyboard event listener
+    document.addEventListener('keydown', handleKeyboard);
+    
+    // Controls will show when workshop mode is enabled via toggle or 'w' key
+  });
+</script>
+{% endif %}

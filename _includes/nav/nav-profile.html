@@ -1,0 +1,32 @@
+{% if site.data.nav-profile %}
+<div class="profile">
+  <img src="{{ site.baseurl }}{{ site.data.nav-profile.image_url }}" alt="{{ site.data.nav-profile.alt_text }}">
+  {% if site.data.nav-profile.name %}
+    <h2>{{ site.data.nav-profile.name }}</h2>
+  {% endif %}
+  {% if site.data.nav-profile.description %}
+    {{ site.data.nav-profile.description | markdownify }}
+  {% endif %}
+</div>
+{% endif %}
+
+{% assign link_fw = site.data.nav-profile.settings.links_font_weight | default: 'inherit' %}
+{% assign link_fw_class = '' %}
+{% if link_fw == 'bold' %}
+  {% assign link_fw_class = 'link-fw-bold' %}
+{% elsif link_fw == 'normal' %}
+  {% assign link_fw_class = 'link-fw-normal' %}
+{% endif %}
+
+<ul>
+  {% for link in site.data.nav-profile.links %}
+    <li>
+      <a class="sidebar-link {{ link_fw_class }}" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+        {% if link.icon %}
+          <i class="{{ link.icon }}" aria-hidden="true"></i>
+        {% endif %}
+        {{ link.title }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,30 @@
+{% comment %}
+  Figure Wrap — image alongside text in a two-column layout
+  Parameters:
+    - image-path:     path to image (required)
+    - alt-text:       accessibility description (optional; falls back to caption)
+    - caption:        caption below the image (optional; markdown supported)
+    - text:           text to appear alongside the image (required; markdown supported)
+    - image-position: left | right — which side the image is on (default: left)
+    - image-width:    CSS width of the image column (default: 40%)
+{% endcomment %}
+
+{% capture img_url %}{% include images/image-path.html image-path=include.image-path %}{% endcapture %}
+{% assign img_url = img_url | strip %}
+{% assign img_pos = include.image-position | default: 'left' %}
+
+<div class="figure-wrap figure-wrap--{{ img_pos }}"
+  style="--figure-wrap-image-width: {{ include.image-width | default: '40%' }};">
+
+  <figure class="figure-wrap__image">
+    <img src="{{ img_url }}" alt="{{ include.alt-text | default: include.caption | default: '' }}">
+    {% if include.caption %}
+    <figcaption>{{ include.caption | markdownify }}</figcaption>
+    {% endif %}
+  </figure>
+
+  <div class="figure-wrap__text">
+    {{ include.text | markdownify }}
+  </div>
+
+</div>

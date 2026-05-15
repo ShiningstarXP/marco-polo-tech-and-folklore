@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {% include html/html-head.html %}
+
+  <body>
+    
+    <div class="page-wrap">
+      
+    {% unless page.nav-below-hero %}
+      {% include nav/nav-top.html %}
+    {% endunless %}
+
+    {% if page.header-image %}
+
+      {% include layout/page-header.html
+        image-path  = page.header-image
+        title       = page.header-title
+        subtitle    = page.header-subtitle
+        eyebrow     = page.header-eyebrow
+        divider     = page.header-divider
+        tier        = page.header-tier
+        filter      = page.header-filter
+        bg-position = page.header-position
+        bg-opacity  = page.header-opacity
+        zoom        = page.header-zoom
+        height      = page.header-height
+        caption     = page.header-caption
+      %}
+
+    {% endif %}
+
+    {% if page.nav-below-hero %}
+      {% include nav/nav-top.html %}
+    {% endif %}
+
+    
+
+    <div class="container">
+      {{ content }}
+    </div> <!-- /container -->
+
+    {% include nav/nav-footer.html %}
+
+    {% include layout/footer.html %}
+
+    {% include nav/search.html %}
+
+    </div> <!-- /page-wrap -->
+
+    {% include google_analytics.html %}
+
+    {% include html/html-js.html %}
+
+  </body>
+</html>

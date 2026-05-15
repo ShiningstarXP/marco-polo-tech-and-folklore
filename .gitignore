@@ -1,0 +1,6 @@
+_site
+.DS_Store
+.claude
+_config.local.yml
+_config.analytics.yml
+CLAUDE.md

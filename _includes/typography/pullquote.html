@@ -1,0 +1,9 @@
+{% comment %}
+  Pullquote — editorial callout highlighting a key passage
+  Parameters:
+    - text:  quote content (required, markdown supported)
+    - width: CSS width override (default: 70%)
+{% endcomment %}
+<aside class="pullquote"{% if include.width %} style="width: {{ include.width }}"{% endif %}>
+  {{ include.text | markdownify }}
+</aside>
