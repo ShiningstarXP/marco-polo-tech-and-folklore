@@ -97,9 +97,9 @@ Not every image needs text beside it. The **standalone figure** sits within the 
 ## Section Headings Create Visual Breaks
 Each section heading (marked with `##` in Markdown) creates a clear visual break in your essay. This helps readers navigate long-form content and gives you natural places to shift topics or introd[...]
 
-**Why this matters:** Breaking essays into clear sections makes both writing and reading much easier. You can also use **bold** text to start paragraphs or inside, just put `**` at the beginning a[...]
+**Why this matters:** Breaking essays into clear sections makes both writing and reading much easier. You can also use **bold** text to start paragraphs or inside, just put `**` at the beginning [...]
 
-Praesent sed vehicula velit, vel hendrerit neque. Vivamus scelerisque sed nunc nec congue. Curabitur sapien risus, finibus id tincidunt iaculis, porta et ipsum. Cras eu mollis sapien. Sed a mauris[...]
+Praesent sed vehicula velit, vel hendrerit neque. Vivamus scelerisque sed nunc nec congue. Curabitur sapien risus, finibus id tincidunt iaculis, porta et ipsum. Cras eu mollis sapien. Sed a mauri[...]
 
 
 ## Pull Quotes Add Emphasis
@@ -128,7 +128,7 @@ Sometimes you need to draw attention to something important — a tip, a warning
 {% include typography/alert.html
   class="info"
   title="Tip"
-  text="Alert boxes come in several colors: **info** (blue), **warning** (yellow), **danger** (red), and **success** (green). Use them sparingly — if everything is highlighted, nothing stands o[...]
+  text="Alert boxes come in several colors: **info** (blue), **warning** (yellow), **danger** (red), and **success** (green). Use them sparingly — if everything is highlighted, nothing stands out."
 %}
 
 Alert boxes support full Markdown inside, including bold, links, and lists. They're especially useful in instructional essays where you need to flag things readers should pay attention to.
