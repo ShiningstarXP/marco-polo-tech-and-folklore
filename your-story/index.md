@@ -4,7 +4,7 @@ author: Fred Gibbs
 layout: scrollstory
 date: 2025-07-21
 thumbnail: images/seedling-card.jpg
-summary: Perfect for beginners getting comfortable with Markdown and digital essays. Section headings, a few images, pull quotes, and footnotes. Nothing fancy, but enough to make a visually compelling essay.
+summary: Perfect for beginners getting comfortable with Markdown and digital essays. Section headings, a few images, pull quotes, and footnotes. Nothing fancy, but enough to make a visually compell[...]
 header-image: images/gurau-felicia-AVu1uHyoCBg-unsplash.jpg
 header-title: The Seedling
 header-subtitle: a beginner scrollstory
@@ -18,16 +18,21 @@ tags:
     - campus
 ---
 
-This essay demonstrates the **simplest ScrollStory approach**—perfect if you're just learning Markdown or want students to focus on writing rather than complex formatting. As you scroll through, notice the clean, uncluttered design that lets content breathe.
+This essay demonstrates the **simplest ScrollStory approach**—perfect if you're just learning Markdown or want students to focus on writing rather than complex formatting. As you scroll through,[...]
 
-**What makes this a "Seedling" essay?** It uses only basic components: section headings, images with captions, pull quotes, alert boxes, and footnotes. No background switching, no side-scrolling—just straightforward digital storytelling that's more visually engaging than a standard web page.
+**What makes this a "Seedling" essay?** It uses only basic components: section headings, images with captions, pull quotes, alert boxes, and footnotes. No background switching, no side-scrolling…[...]
 
 The text below is mostly filler to show how an essay flows, but we'll call out key features as you encounter them.
 
 
+## Interactive Map
+
+<iframe src="https://earth.google.com/earth/d/1rAfiUnGk0gb1DYC-lucvYHotF8thGPL_?usp=sharing" width="100%" height="600px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+
 ## The Hero Header
 
-When you loaded this page, the image above filled the entire browser window — that's a **hero header**. The site navigation bar disappeared into the image rather than sitting above it, keeping the full visual impact intact. Scroll down a little and notice the essay content begins below the image.
+When you loaded this page, the image above filled the entire browser window — that's a **hero header**. The site navigation bar disappeared into the image rather than sitting above it, keeping t[...]
 
 Hero headers are controlled by three front matter fields at the top of this file:
 
@@ -37,16 +42,16 @@ header-title: Your Title Here
 header-subtitle: a short description
 ```
 
-No `header-tier` means hero by default — the image fills 100% of the viewport height. You can also set `header-position` to adjust which part of the image is visible (useful when the focal point isn't centered).
+No `header-tier` means hero by default — the image fills 100% of the viewport height. You can also set `header-position` to adjust which part of the image is visible (useful when the focal point[...]
 
 
 ## Images
 {% capture firstimage %}
-This paragraph sits next to a **right-aligned image**. The ScrollStory layout gives images breathing room—you'll never see cramped text squished against a photo. The spacing and typography are designed to feel more like a magazine than a typical web page.
+This paragraph sits next to a **right-aligned image**. The ScrollStory layout gives images breathing room—you'll never see cramped text squished against a photo. The spacing and typography are d[...]
 
 Notice the caption below the image includes a clickable source link. This is how you maintain scholarly rigor while keeping the visual design clean.
 
-Sed efficitur leo in magna pretium, euismod malesuada risus interdum. Proin sed libero et enim pulvinar convallis non eget est. Sed ultrices dui vitae enim semper accumsan. Duis quis aliquam nulla.
+Sed efficitur leo in magna pretium, euismod malesuada risus interdum. Proin sed libero et enim pulvinar convallis non eget est. Sed ultrices dui vitae enim semper accumsan. Duis quis aliquam nulla[...]
 
 {% endcapture %}
 
@@ -62,12 +67,12 @@ Footnotes work normally in ScrollStories — you can place them anywhere in the 
 
 [^1]: Click a footnote number to see it pop up. Click anywhere else to dismiss. This keeps your main text flowing while providing space for citations and elaboration.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pretium, nibh vel posuere pretium, neque ipsum maximus libero, ac maximus quam ante sit amet dolor. Integer pharetra semper sem sed sagittis. Curabitur mauris tortor, elementum non felis id, hendrerit efficitur metus.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pretium, nibh vel posuere pretium, neque ipsum maximus libero, ac maximus quam ante sit amet dolor. Integer pharetra semper sem sed[...]
 
 
 ## Another image
 {% capture leftimage %}
-Images don't have to be on the right. Here's a **left-aligned** image — the text wraps on the other side. Left-aligned images work well when you want to create a different visual rhythm within your essay.
+Images don't have to be on the right. Here's a **left-aligned** image — the text wraps on the other side. Left-aligned images work well when you want to create a different visual rhythm within y[...]
 
 Mixing left and right placement keeps readers' eyes moving, which prevents the page from feeling monotonous. Try alternating sides as you write.
 {% endcapture %}
@@ -90,30 +95,30 @@ Not every image needs text beside it. The **standalone figure** sits within the 
 
 
 ## Section Headings Create Visual Breaks
-Each section heading (marked with `##` in Markdown) creates a clear visual break in your essay. This helps readers navigate long-form content and gives you natural places to shift topics or introduce new ideas.
+Each section heading (marked with `##` in Markdown) creates a clear visual break in your essay. This helps readers navigate long-form content and gives you natural places to shift topics or introd[...]
 
-**Why this matters:** Breaking essays into clear sections makes both writing and reading much easier. You can also use **bold** text to start paragraphs or inside, just put `**` at the beginning and end of the bold part, like `**Why this matters:**`
+**Why this matters:** Breaking essays into clear sections makes both writing and reading much easier. You can also use **bold** text to start paragraphs or inside, just put `**` at the beginning a[...]
 
-Praesent sed vehicula velit, vel hendrerit neque. Vivamus scelerisque sed nunc nec congue. Curabitur sapien risus, finibus id tincidunt iaculis, porta et ipsum. Cras eu mollis sapien. Sed a mauris finibus orci molestie mollis.
+Praesent sed vehicula velit, vel hendrerit neque. Vivamus scelerisque sed nunc nec congue. Curabitur sapien risus, finibus id tincidunt iaculis, porta et ipsum. Cras eu mollis sapien. Sed a mauris[...]
 
 
 ## Pull Quotes Add Emphasis
-Pellentesque viverra hendrerit sapien eu consequat. Curabitur leo ante, vestibulum a tincidunt eget, placerat eu nunc. Donec ut sem mi. Vivamus commodo nec sem eget pretium. Nulla ullamcorper volutpat venenatis.
+Pellentesque viverra hendrerit sapien eu consequat. Curabitur leo ante, vestibulum a tincidunt eget, placerat eu nunc. Donec ut sem mi. Vivamus commodo nec sem eget pretium. Nulla ullamcorper vol[...]
 
 {% include typography/pullquote.html text="
 This is a pull quote—a design element that highlights important text or quotations. Place it between paragraphs for visual emphasis. Use these sparingly for maximum impact." %}
 
-The pull quote you just saw is created with a simple `include` component, one of many reusable components in Xanthan. You can put important quotes, key statistics, or memorable phrases in these boxes to create visual interest and emphasize crucial points.
+The pull quote you just saw is created with a simple `include` component, one of many reusable components in Xanthan. You can put important quotes, key statistics, or memorable phrases in these b[...]
 
-Duis eros odio, fringilla et pulvinar vitae, eleifend quis elit. Sed eleifend lectus in bibendum elementum. Vivamus ut velit dignissim, cursus libero nec, commodo orci. Morbi lacus metus, posuere ut pretium ac, malesuada id ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consequat, lacus id blandit ornare, mi nisi rutrum ante, vitae dignissim mauris nisl mattis nisl.
+Duis eros odio, fringilla et pulvinar vitae, eleifend quis elit. Sed eleifend lectus in bibendum elementum. Vivamus ut velit dignissim, cursus libero nec, commodo orci. Morbi lacus metus, posuere[...]
 
 
 
 
 ### Subsection Headings (Optional)
-If you need more structure within a section, use subsection headings (marked with `###`). These are slightly smaller than main section headings and help organize complex topics without breaking up the flow too much.
+If you need more structure within a section, use subsection headings (marked with `###`). These are slightly smaller than main section headings and help organize complex topics without breaking u[...]
 
-Duis ut dui dolor. Integer eu lectus at tellus accumsan euismod eget a ligula. Morbi venenatis, elit eu varius fermentum, ligula est dictum massa, sit amet ullamcorper augue nisl ut nunc. Integer placerat vitae metus vitae faucibus.
+Duis ut dui dolor. Integer eu lectus at tellus accumsan euismod eget a ligula. Morbi venenatis, elit eu varius fermentum, ligula est dictum massa, sit amet ullamcorper augue nisl ut nunc. Integer[...]
 
 
 
@@ -123,7 +128,7 @@ Sometimes you need to draw attention to something important — a tip, a warning
 {% include typography/alert.html
   class="info"
   title="Tip"
-  text="Alert boxes come in several colors: **info** (blue), **warning** (yellow), **danger** (red), and **success** (green). Use them sparingly — if everything is highlighted, nothing stands out."
+  text="Alert boxes come in several colors: **info** (blue), **warning** (yellow), **danger** (red), and **success** (green). Use them sparingly — if everything is highlighted, nothing stands o[...]
 %}
 
 Alert boxes support full Markdown inside, including bold, links, and lists. They're especially useful in instructional essays where you need to flag things readers should pay attention to.
@@ -133,18 +138,18 @@ Alert boxes support full Markdown inside, including bold, links, and lists. They
 Block quotes work well when you want to quote an entire paragraph or passage, while pull quotes are better for short, punchy excerpts you want to highlight visually.
 
 
-> This is a block quote, created by putting a `>` symbol before your text. Use these for extended quotations from primary sources, scholarly works, or historical documents. They're visually distinct from pull quotes—block quotes span the full text width, while pull quotes float to the side.
+> This is a block quote, created by putting a `>` symbol before your text. Use these for extended quotations from primary sources, scholarly works, or historical documents. They're visually disti[...]
 
-Sed efficitur leo in magna pretium, euismod malesuada risus interdum. Proin sed libero et enim pulvinar convallis non eget est. Sed ultrices dui vitae enim semper accumsan. Duis quis aliquam nulla. Aenean scelerisque lacus vel pretium viverra.
+Sed efficitur leo in magna pretium, euismod malesuada risus interdum. Proin sed libero et enim pulvinar convallis non eget est. Sed ultrices dui vitae enim semper accumsan. Duis quis aliquam null[...]
 
 
 
 ## The Rhythm of a ScrollStory
-By now you've scrolled through several sections and noticed the **rhythm** of a ScrollStory: heading, text, image, text, pull quote, text. This creates a visual cadence that keeps readers engaged without overwhelming them.
+By now you've scrolled through several sections and noticed the **rhythm** of a ScrollStory: heading, text, image, text, pull quote, text. This creates a visual cadence that keeps readers engaged[...]
 
-**Think about pacing.** Where do readers need a visual break? Where should an image reinforce your argument? When does a pull quote emphasize a key point? These decisions make the difference between a wall of text and an engaging narrative.
+**Think about pacing.** Where do readers need a visual break? Where should an image reinforce your argument? When does a pull quote emphasize a key point? These decisions make the difference betw[...]
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pretium, nibh vel posuere pretium, neque ipsum maximus libero, ac maximus quam ante sit amet dolor. Integer pharetra semper sem sed sagittis. Aliquam in sapien mauris. Aliquam erat volutpat.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pretium, nibh vel posuere pretium, neque ipsum maximus libero, ac maximus quam ante sit amet dolor. Integer pharetra semper sem se[...]
 
 
 ## What You've Learned So Far
@@ -157,16 +162,15 @@ If you can create this Seedling essay, you can:
 - Format block quotes for extended quotations
 - Add alert boxes for tips and warnings
 
-**That's enough to create compelling digital scholarship.** The Sapling and Forest essays use addtional Xanthan components, but this foundation works for many projects, especially when just getting used to designing an essay.
+**That's enough to create compelling digital scholarship.** The Sapling and Forest essays use addtional Xanthan components, but this foundation works for many projects, especially when just getti[...]
 
-Duis eros odio, fringilla et pulvinar vitae, eleifend quis elit. Sed eleifend lectus in bibendum elementum. Vivamus ut velit dignissim, cursus libero nec, commodo orci. Morbi lacus metus, posuere ut pretium ac, malesuada id ligula.
+Duis eros odio, fringilla et pulvinar vitae, eleifend quis elit. Sed eleifend lectus in bibendum elementum. Vivamus ut velit dignissim, cursus libero nec, commodo orci. Morbi lacus metus, posuere[...]
 
 
 ## Ready to Create Your Own?
 
-**New to Xanthan?** Start with the [Getting Started guide](../../../docs/getting-started/) to create your own site first. Once you have a working site, you'll have your own scrollstory you can edit.
+**New to Xanthan?** Start with the [Getting Started guide](../../../docs/getting-started/) to create your own site first. Once you have a working site, you'll have your own scrollstory you can ed[...]
 
 Start simple. Get comfortable with the basics. You can always add complexity later by copying and pasting elements from the other essays.
 
 To see more components in action, head over to the [Sapling Essay](../sapling).
-
