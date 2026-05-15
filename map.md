@@ -63,3 +63,57 @@ pages.forEach(p => {
   });
 });
 </script>
+
+<!-- KML Data Integration -->
+<script>
+// Load KML file function
+function loadKML(url, map) {
+  fetch(url)
+    .then(response => response.text())
+    .then(kmlText => {
+      const parser = new DOMParser();
+      const kmlDOM = parser.parseFromString(kmlText, 'text/xml');
+      
+      // Parse placemarks from KML
+      const placemarks = kmlDOM.getElementsByTagName('Placemark');
+      Array.from(placemarks).forEach(placemark => {
+        const name = placemark.getElementsByTagName('name')[0]?.textContent || 'Unnamed';
+        const description = placemark.getElementsByTagName('description')[0]?.textContent || '';
+        
+        // Handle Point geometries
+        const point = placemark.getElementsByTagName('Point')[0];
+        if (point) {
+          const coords = point.getElementsByTagName('coordinates')[0]?.textContent.trim().split(',');
+          if (coords && coords.length >= 2) {
+            const lat = parseFloat(coords[1]);
+            const lng = parseFloat(coords[0]);
+            const marker = L.marker([lat, lng]).addTo(map);
+            marker.bindPopup(`<strong>${name}</strong><br/>${description}`);
+          }
+        }
+        
+        // Handle LineString geometries
+        const linestring = placemark.getElementsByTagName('LineString')[0];
+        if (linestring) {
+          const coords = linestring.getElementsByTagName('coordinates')[0]?.textContent.trim().split('\n');
+          const latlngs = coords.map(coord => {
+            const parts = coord.trim().split(',');
+            return [parseFloat(parts[1]), parseFloat(parts[0])];
+          }).filter(coord => !isNaN(coord[0]) && !isNaN(coord[1]));
+          if (latlngs.length > 0) {
+            L.polyline(latlngs, { color: 'blue', weight: 3 }).addTo(map).bindPopup(name);
+          }
+        }
+      });
+    })
+    .catch(error => console.error('Error loading KML:', error));
+}
+
+// Load KML file after map initialization
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(() => {
+    const map = L.map('map');
+    loadKML('{{ site.baseurl }}/kml-data/marco-polo-routes.kml', map);
+  }, 1000);
+});
+</script>
