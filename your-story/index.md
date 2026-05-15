@@ -20,14 +20,101 @@ tags:
 
 This essay demonstrates the **simplest ScrollStory approach**—perfect if you're just learning Markdown or want students to focus on writing rather than complex formatting. As you scroll through,[...]
 
-**What makes this a "Seedling" essay?** It uses only basic components: section headings, images with captions, pull quotes, alert boxes, and footnotes. No background switching, no side-scrolling…[...]
+**What makes this a "Seedling" essay?** It uses only basic components: section headings, images with captions, pull quotes, alert boxes, and footnotes. No background switching, no side-scrolling![...]
 
 The text below is mostly filler to show how an essay flows, but we'll call out key features as you encounter them.
 
 
 ## Interactive Map
 
-<iframe src="https://earth.google.com/earth/d/1rAfiUnGk0gb1DYC-lucvYHotF8thGPL_?usp=sharing" width="100%" height="600px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<div id="kml-map" style="width: 100%; height: 600px; border: 2px solid #ccc; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Initialize Leaflet map
+  const map = L.map('kml-map').setView([44.967, -103.767], 4);
+  
+  // Add tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Function to parse and load KML
+  function loadKML(url) {
+    fetch(url)
+      .then(response => response.text())
+      .then(kmlText => {
+        const parser = new DOMParser();
+        const kmlDOM = parser.parseFromString(kmlText, 'text/xml');
+        
+        // Parse placemarks from KML
+        const placemarks = kmlDOM.getElementsByTagName('Placemark');
+        Array.from(placemarks).forEach(placemark => {
+          const name = placemark.getElementsByTagName('name')[0]?.textContent || 'Unnamed';
+          const description = placemark.getElementsByTagName('description')[0]?.textContent || '';
+          
+          // Handle Point geometries (locations)
+          const point = placemark.getElementsByTagName('Point')[0];
+          if (point) {
+            const coords = point.getElementsByTagName('coordinates')[0]?.textContent.trim().split(',');
+            if (coords && coords.length >= 2) {
+              const lat = parseFloat(coords[1]);
+              const lng = parseFloat(coords[0]);
+              const marker = L.marker([lat, lng]).addTo(map);
+              marker.bindPopup(`<strong>${name}</strong><br/>${description}`);
+            }
+          }
+          
+          // Handle LineString geometries (routes)
+          const linestring = placemark.getElementsByTagName('LineString')[0];
+          if (linestring) {
+            const coords = linestring.getElementsByTagName('coordinates')[0]?.textContent.trim().split('\n');
+            const latlngs = coords.map(coord => {
+              const parts = coord.trim().split(',');
+              return [parseFloat(parts[1]), parseFloat(parts[0])];
+            }).filter(coord => !isNaN(coord[0]) && !isNaN(coord[1]));
+            if (latlngs.length > 0) {
+              L.polyline(latlngs, { 
+                color: 'blue', 
+                weight: 3,
+                opacity: 0.7
+              }).addTo(map).bindPopup(name);
+            }
+          }
+
+          // Handle Polygon geometries
+          const polygon = placemark.getElementsByTagName('Polygon')[0];
+          if (polygon) {
+            const outerBoundary = polygon.getElementsByTagName('outerBoundaryIs')[0];
+            if (outerBoundary) {
+              const coords = outerBoundary.getElementsByTagName('coordinates')[0]?.textContent.trim().split('\n');
+              const latlngs = coords.map(coord => {
+                const parts = coord.trim().split(',');
+                return [parseFloat(parts[1]), parseFloat(parts[0])];
+              }).filter(coord => !isNaN(coord[0]) && !isNaN(coord[1]));
+              if (latlngs.length > 0) {
+                L.polygon(latlngs, {
+                  color: 'green',
+                  weight: 2,
+                  opacity: 0.5,
+                  fillOpacity: 0.3
+                }).addTo(map).bindPopup(name);
+              }
+            }
+          }
+        });
+      })
+      .catch(error => console.error('Error loading KML:', error));
+  }
+
+  // Load your KML file
+  loadKML('{{ site.baseurl }}/kml-data/travels-map-v1.kml');
+});
+</script>
 
 
 ## The Hero Header
@@ -128,7 +215,7 @@ Sometimes you need to draw attention to something important — a tip, a warning
 {% include typography/alert.html
   class="info"
   title="Tip"
-  text="Alert boxes come in several colors: **info** (blue), **warning** (yellow), **danger** (red), and **success** (green). Use them sparingly — if everything is highlighted, nothing stands out."
+  text="Alert boxes come in several colors: **info** (blue), **warning** (yellow), **danger** (red), and **success** (green). Use them sparingly — if everything is highlighted, nothing stands o[...]
 %}
 
 Alert boxes support full Markdown inside, including bold, links, and lists. They're especially useful in instructional essays where you need to flag things readers should pay attention to.
